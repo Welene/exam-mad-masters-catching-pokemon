@@ -6,19 +6,107 @@
 
 /* Ser till så att bilderna får korrekt storlek och deras rörelse animeras */
 /* När ni sätter intervallen efter vilken pokemonen får sin nya position bör den intervallen överensstämma med tiden här. 3s. */
+
+/* Pokémon images */
 img {
   width: 300px;
+  position: absolute;
   transition: all 3s linear;
 }
 
-/* Body Styling*/
+/* Body styling */
+/* Adjust background scaling */
 body {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background-image: url("../assets/arena-background.png");
+  font-family: Arial, sans-serif;
+  background-image: url("../assets/background.png"); /* Changed to correct bild */
+  background-size: cover; /* Show full image */
   background-position: center;
   background-repeat: no-repeat;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background 1s ease-in-out;
+}
+
+/* New background after validation */
+.game-active {
+  background-image: url("../assets/arena-background.png"); /* Replace with arena background */
+  background-size: cover; /* Optional: Make it cover the whole screen / Show full image  will see later effet*/
+}
+
+/* Form wrapper */
+.form-wrapper {
+  background: rgba(245, 245, 220, 0.7);
+  /* background: rgba(157, 58, 58, 0.7);*/
+  padding: 20px;
+  padding-left: 20px;
+  border-radius: 15px;
+  /* box-shadow: 0px 5px 80px rgba(245, 4, 4, 0.3);*/
+  text-align: center;
+  width: 500px;
+  margin-top: -350px;
+}
+
+/* Input fields */
+input[type="text"] {
+  width: 90%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Radio button labels */
+label {
+  margin: 5px;
+  font-weight: bold;
+}
+
+/* Button styles */
+button {
+  margin-top: 1rem;
+  background-color: #ffcc00;
+  color: black;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #ff9900;
+}
+
+/* Game field styling */
+.game-field {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* High Score Display */
+.high-score {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Hide elements initially */
+.d-none {
+  display: none;
+}
+
+.form__text {
+  margin-top: 0.5rem;
 }
