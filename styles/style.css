@@ -110,3 +110,14 @@ button:hover {
 .form__text {
   margin-top: 0.5rem;
 }
+
+.music-btn {
+  position: absolute;
+  right: 0;
+  margin-right: 2rem;
+  width: 80px;
+  aspect-ratio: 1;
+  padding: 1rem;
+  font-size: 2rem;
+  background-color: red;
+}

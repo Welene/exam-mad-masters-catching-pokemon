@@ -97,14 +97,6 @@ let musicBtn = document.createElement(`button`);
 musicBtn.id = `music-btn`;
 musicBtn.classList = `music-btn`;
 musicBtn.textContent = String.fromCodePoint(0x266b);
-musicBtn.style.width = `80px`;
-musicBtn.style.padding = `1rem`;
-musicBtn.style.fontSize = `2rem`;
-musicBtn.style.background = `red`;
-musicBtn.style.position = `absolute`;
-musicBtn.style.right = `0`;
-musicBtn.style.marginRight = `2rem`;
-musicBtn.style.aspectRatio = `1/1`;
 
 document.querySelector(`#gameField`).classList.remove(`d-none`);
 document.querySelector(`#gameField`).appendChild(musicBtn);
