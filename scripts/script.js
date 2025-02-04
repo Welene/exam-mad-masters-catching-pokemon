@@ -106,5 +106,5 @@ function createPokemons() {
     gameField.appendChild(pokemon);
     pokemons.push(pokemon);
   }
-  //Anropa Thapas function
+  movePokemons();
 }
