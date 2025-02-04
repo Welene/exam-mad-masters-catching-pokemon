@@ -1,21 +1,5 @@
 const log = (msg) => console.log(msg);
 
-// Användaren startar vid ett formulär och ni skall formulärvalidera följande
-// --- Tränarens namn måste vara mellan 5 och 10 tecken långt
-// --- Tränaren måste vara mellan 10 och 15 år gammal
-// --- Tränaren måste ha bockat i om hen är en pojke eller en flicka
-
-// let oGameData = {};
-// log(oGameData);
-
-// function initGlobalObject() {
-//     oGameData.trainerName = document.querySelector(`#nick`);
-//     oGameData.trainerAge = Parseint(document.querySelector(`#age`));
-
-//     oGameData.timeRef = document.querySelector(`#errorMsg`);
-//     oGameData.querySelector('#form');
-// }
-
 let errorMsg = document.createElement(`p`);
 errorMsg.id = `errorMsg`;
 errorMsg.style.color = `red`;
@@ -79,6 +63,34 @@ function validateForm(event) {
 
 document.querySelector(`#form`).addEventListener(`submit`, validateForm);
 
+const numPokemons = 10;
+const gameField = document.querySelector(`#gameField`);
+const pokemons = [];
+
+const pokeballImg = document.createElement(`img`);
+pokeballImg.src = `./assets/ball.webp`;
+pokeballImg.alt = `Pokemonboll`;
+
+// skapa function RandomPokemonImg för att spara src för jpg i variabeln randomImg.
+// Tar emot parametrar om totalt antal pokemons och antalet vi vill ha.
+//  finns variabel numPokemons sparad för detta med värdet 10
+
+function createPokemons() {
+  for (i = 0; i < numPokemons; i++) {
+    const pokemon = document.createElement(`img`);
+    pokemon.src = randomImg[i];
+    pokemon.classList.add(`pokemon`);
+    pokemon.style.left = oGameData.getLeftPosition();
+    pokemon.style.top = oGameData.getTopPosition();
+
+    //Lägg till function för att fånga pokemon, catchPokemon?
+    pokemon.addEventListener(`mouseenter`, catchPokemon);
+    gameField.appendChild(pokemon);
+    pokemons.push(pokemon);
+  }
+  movePokemons();
+}
+
 function movePokemons() {
   let allPokemons = document.querySelectorAll(".pokemon"); // Select all Pokémon images
 
@@ -93,3 +105,4 @@ function movePokemons() {
 
 // Move Pokémon every 3 seconds
 setInterval(movePokemons, 3000);
+
