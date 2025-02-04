@@ -88,3 +88,11 @@ const pokemons = [];
 const pokeballImg = document.createElement(`img`);
 pokeballImg.src = `./assets/ball.webp`;
 pokeballImg.alt = `Pokemonboll`;
+
+// skapa function RandomPokemonImg för att spara src för jpg i variabeln randomImg
+
+function createPokemons() {
+  for (i = 0; i < numPokemons; i++);
+  const pokemon = document.createElement(`img`);
+  pokemon.src = randomImg[i];
+}
