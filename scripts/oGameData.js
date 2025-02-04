@@ -8,6 +8,7 @@ const oGameData = {
   trainerAge: 0,
   trainerGender: "",
   // Metod som nollställer datan i oGameData
+
   init: function () {
     this.pokemonNumbers = [];
     this.nmbrOfCaughtPokemons = 0;

@@ -71,6 +71,45 @@ function validateForm(event) {
 
 document.querySelector(`#form`).addEventListener(`submit`, validateForm);
 
+const audioRef = document.querySelector(`audio`);
+
+let isPlaying = true;
+
+function startMusic() {
+  audioRef.play();
+  log(`Musiken spelar`);
+}
+
+function stopMusic() {
+  audioRef.pause();
+  log(`Musiken är pausad`);
+}
+
+let musicBtn = document.createElement(`button`);
+musicBtn.id = `music-btn`;
+musicBtn.classList = `music-btn`;
+musicBtn.textContent = String.fromCodePoint(0x266b);
+
+document.querySelector(`#gameField`).classList.remove(`d-none`);
+document.querySelector(`#gameField`).appendChild(musicBtn);
+
+function toggleMusic() {
+  if (isPlaying) {
+    stopMusic();
+  } else {
+    startMusic();
+  }
+
+  isPlaying = !isPlaying;
+
+  musicBtn.innerHTML = isPlaying
+    ? String.fromCodePoint(0x266b)
+    : String.fromCodePoint(0x23f8);
+}
+
+musicBtn.addEventListener(`click`, toggleMusic);
+
+
 function initiateGame() {
   // bytte bakgrunnsbilde med et annet
   // document.querySelector(`#form`).classList.add(`d-none`); // FEIL: --> tar bort bare form, wrapperen står kvar.
@@ -156,3 +195,4 @@ function catchPokemon(event) {
     if (oGameData.nmbrOfCaughtPokemons === 10) endGame();
   }
 }
+
