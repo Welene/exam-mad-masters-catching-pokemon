@@ -30,7 +30,8 @@ body {
 }
 
 /* New background after validation */
-.game-active { /* WE DON'T NEED THIS ONE - can remove - changing picture inside body directly when game has started */
+.game-active {
+  /* WE DON'T NEED THIS ONE - can remove - changing picture inside body directly when game has started */
   background-image: url("../assets/arena-background.png"); /* Replace with arena background */
   background-size: cover; /* Optional: Make it cover the whole screen / Show full image  will see later effet*/
 }
@@ -119,5 +120,4 @@ button:hover {
   aspect-ratio: 1;
   padding: 1rem;
   font-size: 2rem;
-  background-color: red;
 }
