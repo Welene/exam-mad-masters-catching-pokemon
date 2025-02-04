@@ -96,8 +96,8 @@ function stopMusic() {
 let musicBtn = document.createElement(`button`);
 musicBtn.id = `music-btn`;
 musicBtn.classList = `music-btn`;
-musicBtn.innerHTML = `&#x266B;`;
-musicBtn.style.width = `70px`;
+musicBtn.textContent = String.fromCodePoint(0x266b);
+musicBtn.style.width = `80px`;
 musicBtn.style.padding = `1rem`;
 musicBtn.style.fontSize = `2rem`;
 musicBtn.style.background = `red`;
@@ -118,7 +118,9 @@ function toggleMusic() {
 
   isPlaying = !isPlaying;
 
-  musicBtn.textContent = isPlaying ? "&#x23F8;" : "&#x266B;";
+  musicBtn.innerHTML = isPlaying
+    ? String.fromCodePoint(0x266b)
+    : String.fromCodePoint(0x23f8);
 }
 
 musicBtn.addEventListener(`click`, toggleMusic);
