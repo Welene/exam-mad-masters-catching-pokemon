@@ -94,10 +94,17 @@ pokeballImg.alt = `Pokemonboll`;
 //  finns variabel numPokemons sparad för detta med värdet 10
 
 function createPokemons() {
-  for (i = 0; i < numPokemons; i++);
-  const pokemon = document.createElement(`img`);
-  pokemon.src = randomImg[i];
-  pokemon.classList.add(`pokemon`);
-  pokemon.style.left = oGameData.getLeftPosition();
-  pokemon.style.top = oGameData.getTopPosition();
+  for (i = 0; i < numPokemons; i++) {
+    const pokemon = document.createElement(`img`);
+    pokemon.src = randomImg[i];
+    pokemon.classList.add(`pokemon`);
+    pokemon.style.left = oGameData.getLeftPosition();
+    pokemon.style.top = oGameData.getTopPosition();
+
+    //Lägg till function för att fånga pokemon, catchPokemon?
+    pokemon.addEventListener(`mouseenter`, catchPokemon);
+    gameField.appendChild(pokemon);
+    pokemons.push(pokemon);
+  }
+  //Anropa Thapas function
 }
