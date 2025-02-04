@@ -1,23 +1,5 @@
 const log = (msg) => console.log(msg);
 
-// Användaren startar vid ett formulär och ni skall formulärvalidera följande
-// --- Tränarens namn måste vara mellan 5 och 10 tecken långt
-// --- Tränaren måste vara mellan 10 och 15 år gammal
-// --- Tränaren måste ha bockat i om hen är en pojke eller en flicka
-
-// let oGameData = {};
-// log(oGameData);
-
-// function initGlobalObject() {
-//     oGameData.trainerName = document.querySelector(`#nick`);
-//     oGameData.trainerAge = Parseint(document.querySelector(`#age`));
-
-//     oGameData.timeRef = document.querySelector(`#errorMsg`);
-//     oGameData.querySelector('#form');
-// }
-
-log(oGameData.trainerAge);
-
 let errorMsg = document.createElement(`p`);
 errorMsg.id = `errorMsg`;
 errorMsg.style.color = `red`;
@@ -108,3 +90,19 @@ function createPokemons() {
   }
   movePokemons();
 }
+
+function movePokemons() {
+  let allPokemons = document.querySelectorAll(".pokemon"); // Select all Pokémon images
+
+  allPokemons.forEach((pokemon) => {
+    let newLeft = oGameData.getLeftPosition();
+    let newTop = oGameData.getTopPosition();
+
+    pokemon.style.left = `${newLeft}px`; // Moves Pokémon horizontally
+    pokemon.style.top = `${newTop}px`; // Moves Pokémon vertically
+  });
+}
+
+// Move Pokémon every 3 seconds
+setInterval(movePokemons, 3000);
+
