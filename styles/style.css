@@ -30,7 +30,7 @@ body {
 }
 
 /* New background after validation */
-.game-active {
+.game-active { /* WE DON'T NEED THIS ONE - can remove - changing picture inside body directly when game has started */
   background-image: url("../assets/arena-background.png"); /* Replace with arena background */
   background-size: cover; /* Optional: Make it cover the whole screen / Show full image  will see later effet*/
 }

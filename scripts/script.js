@@ -23,6 +23,7 @@ let errorMsg = document.createElement(`p`);
 errorMsg.id = `errorMsg`;
 errorMsg.style.color = `red`;
 errorMsg.style.fontWeight = `600`;
+errorMsg.style.fontStyle = `italic` //----------------------------------------------ENDRET TIL (bold) + (italic), kan ta bort også
 
 const submitBtnRef = document.querySelector(`#submitBtn`);
     submitBtnRef.insertAdjacentElement("afterend", errorMsg);
