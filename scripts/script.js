@@ -22,6 +22,7 @@ const log = (msg) => console.log(msg);
 let errorMsg = document.createElement(`p`);
 errorMsg.id = `errorMsg`;
 errorMsg.style.color = `red`;
+errorMsg.style.fontWeight = `600`;
 
 const submitBtnRef = document.querySelector(`#submitBtn`);
     submitBtnRef.insertAdjacentElement("afterend", errorMsg);
@@ -65,7 +66,7 @@ function validateForm(event) {
         }
     }
     if (!isSelected) {
-    throw new Error(`Du måste välja pojke eller flicka`);
+    throw new Error(`In this game you have to be either a boy or a girl`);
     }
     errorMsg.textContent = ``;
 
@@ -91,11 +92,17 @@ function initiateGame() {
 document.querySelector(`.form-wrapper`).classList.add(`d-none`); // TAR BORT BÅDE (form) OG (form-wrapper) - ALT GJEMMES 
 document.querySelector(`#gameField`).classList.remove(`d-none`); // Annelie behöver remove(d-none)
 
-document.body.style.backgroundImage = "url('../assets/arena-background.png')";
+document.body.style.backgroundImage = "url('../assets/arena-background.png')"; // BYTTER UT BACKGRUNNSBILDE
 
+// LEGG TIL MUSIKKFUNKSJONEN HER
+// startMusic();
 
 // SETT INN ANNELIEs FUNKSJON
+// createPokemons();
 
 // SETT INN THAPAs FUNKSJON
+// movePokemons();
+
+
 
 }
