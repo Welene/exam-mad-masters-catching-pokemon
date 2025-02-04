@@ -68,6 +68,13 @@ function validateForm(event) {
     throw new Error(`Du måste välja pojke eller flicka`);
     }
     errorMsg.textContent = ``;
+
+initiateGame(); // ----------------------------------------------- ANROPER (InitiateGame) HER - ETTER (form) ER KONTROLLERT
+
+event.preventDefault(); // --------------------------------------- FLYTTET (preventDefault) UT FRA (catch) -  sånn at den ikke 
+// ----------------------------------------------------------------bare unngår å refreshe når ting er feil, 
+//---------------------------------------------------------------- men også unngår å refreshe når alt er rett
+
 } catch (error) {
     errorMsg.textContent = error.message;
     log(error.message);
@@ -76,3 +83,19 @@ function validateForm(event) {
 }
 
 document.querySelector(`#form`).addEventListener(`submit`, validateForm);
+
+
+function initiateGame() {
+// bytte bakgrunnsbilde med et annet
+// document.querySelector(`#form`).classList.add(`d-none`); // FEIL: --> tar bort bare form, wrapperen står kvar.
+document.querySelector(`.form-wrapper`).classList.add(`d-none`); // TAR BORT BÅDE (form) OG (form-wrapper) - ALT GJEMMES 
+document.querySelector(`#gameField`).classList.remove(`d-none`); // Annelie behöver remove(d-none)
+
+document.body.style.backgroundImage = "url('../assets/arena-background.png')";
+
+
+// SETT INN ANNELIEs FUNKSJON
+
+// SETT INN THAPAs FUNKSJON
+
+}
