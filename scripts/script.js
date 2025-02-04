@@ -79,18 +79,11 @@ document.querySelector(`#gameField`).classList.remove(`d-none`); // Annelie beh�
 
 document.body.style.backgroundImage = "url('../assets/arena-background.png')"; // BYTTER UT BACKGRUNNSBILDE
 
-// LEGG TIL MUSIKKFUNKSJONEN HER
 // startMusic();
-
-// SETT INN ANNELIEs FUNKSJON
-// createPokemons();
-
-// SETT INN THAPAs FUNKSJON
-// movePokemons();
-
-
-
+createPokemons();
+movePokemons();
 }
+
 const numPokemons = 10;
 const gameField = document.querySelector(`#gameField`);
 const pokemons = [];
@@ -103,8 +96,21 @@ pokeballImg.alt = `Pokemonboll`;
 // Tar emot parametrar om totalt antal pokemons och antalet vi vill ha.
 //  finns variabel numPokemons sparad för detta med värdet 10
 
+function randomPokemonImg(allImages, numImages){
+  let selectedImages = [];
+
+  while (selectedImages.size < numImages) {
+  
+  }
+ 
+}
+ let randomImg = randomPokemonImg(151, numPokemons);
+
+// let randomImg = [`Bulbasaur`,`Pikachu`, `Charmander`, `Mr Mime`, `Ponyta`, `Piplup`, `Psyduck`, `Rapidash`, `Squirtle`, `Ratata`];
+
+
 function createPokemons() {
-  for (i = 0; i < numPokemons; i++) {
+  for (let i = 0; i < numPokemons; i++) {
     const pokemon = document.createElement(`img`);
     pokemon.src = randomImg[i];
     pokemon.classList.add(`pokemon`);
@@ -134,3 +140,15 @@ function movePokemons() {
 // Move Pokémon every 3 seconds
 setInterval(movePokemons, 3000);
 
+function catchPokemon(event) {
+  let randomImg = event.target;
+  if (!caughtPokemons.has(img)) {
+    // if not caught  catch it...
+    caughtPokemons.add(img);
+    img.src = "./assets/pokeboll.png";      // change to a ball 
+    img.removeEventListener("click", releasePokemon);
+    oGameData.nmbrOfCaughtPokemons++;
+    if (oGameData.nmbrOfCaughtPokemons ===10) 
+        endGame();
+  }
+}
