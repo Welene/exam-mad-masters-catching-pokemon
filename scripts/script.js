@@ -4,7 +4,7 @@ let errorMsg = document.createElement(`p`);
 errorMsg.id = `errorMsg`;
 errorMsg.style.color = `red`;
 errorMsg.style.fontWeight = `600`;
-errorMsg.style.fontStyle = `italic` //----------------------------------------------ENDRET TIL (bold) + (italic), kan ta bort også
+errorMsg.style.fontStyle = `italic`; //----------------------------------------------ENDRET TIL (bold) + (italic), kan ta bort også
 
 const submitBtnRef = document.querySelector(`#submitBtn`);
 submitBtnRef.insertAdjacentElement("afterend", errorMsg);
@@ -53,15 +53,15 @@ function validateForm(event) {
       }
     }
     if (!isSelected) {
-    throw new Error(`In this game you have to be either a boy or a girl`);
+      throw new Error(`In this game you have to be either a boy or a girl`);
     }
     errorMsg.textContent = ``;
 
     initiateGame(); // ----------------------------------------------- ANROPER (InitiateGame) HER - ETTER (form) ER KONTROLLERT
 
-    event.preventDefault(); // --------------------------------------- FLYTTET (preventDefault) UT FRA (catch) -  sånn at den ikke 
-// ----------------------------------------------------------------bare unngår å refreshe når ting er feil, 
-//---------------------------------------------------------------- men også unngår å refreshe når alt er rett
+    event.preventDefault(); // --------------------------------------- FLYTTET (preventDefault) UT FRA (catch) -  sånn at den ikke
+    // ----------------------------------------------------------------bare unngår å refreshe når ting er feil,
+    //---------------------------------------------------------------- men også unngår å refreshe når alt er rett
   } catch (error) {
     errorMsg.textContent = error.message;
     log(error.message);
@@ -72,16 +72,16 @@ function validateForm(event) {
 document.querySelector(`#form`).addEventListener(`submit`, validateForm);
 
 function initiateGame() {
-// bytte bakgrunnsbilde med et annet
-// document.querySelector(`#form`).classList.add(`d-none`); // FEIL: --> tar bort bare form, wrapperen står kvar.
-document.querySelector(`.form-wrapper`).classList.add(`d-none`); // TAR BORT BÅDE (form) OG (form-wrapper) - ALT GJEMMES 
-document.querySelector(`#gameField`).classList.remove(`d-none`); // Annelie behöver remove(d-none)
+  // bytte bakgrunnsbilde med et annet
+  // document.querySelector(`#form`).classList.add(`d-none`); // FEIL: --> tar bort bare form, wrapperen står kvar.
+  document.querySelector(`.form-wrapper`).classList.add(`d-none`); // TAR BORT BÅDE (form) OG (form-wrapper) - ALT GJEMMES
+  document.querySelector(`#gameField`).classList.remove(`d-none`); // Annelie behöver remove(d-none)
 
-document.body.style.backgroundImage = "url('../assets/arena-background.png')"; // BYTTER UT BACKGRUNNSBILDE
+  document.body.style.backgroundImage = "url('../assets/arena-background.png')"; // BYTTER UT BACKGRUNNSBILDE
 
-// startMusic();
-createPokemons();
-movePokemons();
+  // startMusic();
+  createPokemons();
+  movePokemons();
 }
 
 const numPokemons = 10;
@@ -96,18 +96,23 @@ pokeballImg.alt = `Pokemonboll`;
 // Tar emot parametrar om totalt antal pokemons och antalet vi vill ha.
 //  finns variabel numPokemons sparad för detta med värdet 10
 
-function randomPokemonImg(allImages, numImages){
+function randomPokemonImg(allImages, numImages) {
   let selectedImages = [];
 
-  while (selectedImages.size < numImages) {
-  
+  while (selectedImages.length < numImages) {
+    let randomNum = Math.floor(Math.random() * allImages) + 1; //Spara ett slumpat värde i randomNum mellan 1 och 151
+    let formatedNum = randomNum.toString().padStart(3, `0`);
+    //Våra bilder har alltid nollor framför namnet.
+    // Det vill vi skapa. padstart 3 innebär att det alltid ska vara tre siffror
+    selectedImages.push(`./assets/pokemons/${formatedNum}.png`);
   }
- 
+  return selectedImages;
 }
- let randomImg = randomPokemonImg(151, numPokemons);
+
+let randomImg = randomPokemonImg(151, numPokemons);
+log(randomImg);
 
 // let randomImg = [`Bulbasaur`,`Pikachu`, `Charmander`, `Mr Mime`, `Ponyta`, `Piplup`, `Psyduck`, `Rapidash`, `Squirtle`, `Ratata`];
-
 
 function createPokemons() {
   for (let i = 0; i < numPokemons; i++) {
@@ -145,10 +150,9 @@ function catchPokemon(event) {
   if (!caughtPokemons.has(img)) {
     // if not caught  catch it...
     caughtPokemons.add(img);
-    img.src = "./assets/pokeboll.png";      // change to a ball 
+    img.src = "./assets/pokeboll.png"; // change to a ball
     img.removeEventListener("click", releasePokemon);
     oGameData.nmbrOfCaughtPokemons++;
-    if (oGameData.nmbrOfCaughtPokemons ===10) 
-        endGame();
+    if (oGameData.nmbrOfCaughtPokemons === 10) endGame();
   }
 }
