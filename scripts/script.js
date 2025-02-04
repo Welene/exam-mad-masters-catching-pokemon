@@ -90,7 +90,7 @@ musicBtn.id = `music-btn`;
 musicBtn.classList = `music-btn`;
 musicBtn.textContent = String.fromCodePoint(0x266b);
 
-document.querySelector(`#gameField`).classList.remove(`d-none`);
+// document.querySelector(`#gameField`).classList.remove(`d-none`);
 document.querySelector(`#gameField`).appendChild(musicBtn);
 
 function toggleMusic() {
@@ -109,7 +109,6 @@ function toggleMusic() {
 
 musicBtn.addEventListener(`click`, toggleMusic);
 
-
 function initiateGame() {
   // bytte bakgrunnsbilde med et annet
   // document.querySelector(`#form`).classList.add(`d-none`); // FEIL: --> tar bort bare form, wrapperen står kvar.
@@ -118,7 +117,7 @@ function initiateGame() {
 
   document.body.style.backgroundImage = "url('../assets/arena-background.png')"; // BYTTER UT BACKGRUNNSBILDE
 
-  // startMusic();
+  startMusic();
   createPokemons();
   movePokemons();
 }
@@ -195,4 +194,3 @@ function catchPokemon(event) {
     if (oGameData.nmbrOfCaughtPokemons === 10) endGame();
   }
 }
-
