@@ -3,6 +3,8 @@ const log = (msg) => console.log(msg);
 let errorMsg = document.createElement(`p`);
 errorMsg.id = `errorMsg`;
 errorMsg.style.color = `red`;
+errorMsg.style.fontWeight = `600`;
+errorMsg.style.fontStyle = `italic` //----------------------------------------------ENDRET TIL (bold) + (italic), kan ta bort også
 
 const submitBtnRef = document.querySelector(`#submitBtn`);
 submitBtnRef.insertAdjacentElement("afterend", errorMsg);
@@ -51,9 +53,15 @@ function validateForm(event) {
       }
     }
     if (!isSelected) {
-      throw new Error(`Du måste välja pojke eller flicka`);
+    throw new Error(`In this game you have to be either a boy or a girl`);
     }
     errorMsg.textContent = ``;
+
+    initiateGame(); // ----------------------------------------------- ANROPER (InitiateGame) HER - ETTER (form) ER KONTROLLERT
+
+    event.preventDefault(); // --------------------------------------- FLYTTET (preventDefault) UT FRA (catch) -  sånn at den ikke 
+// ----------------------------------------------------------------bare unngår å refreshe når ting er feil, 
+//---------------------------------------------------------------- men også unngår å refreshe når alt er rett
   } catch (error) {
     errorMsg.textContent = error.message;
     log(error.message);
@@ -63,6 +71,26 @@ function validateForm(event) {
 
 document.querySelector(`#form`).addEventListener(`submit`, validateForm);
 
+function initiateGame() {
+// bytte bakgrunnsbilde med et annet
+// document.querySelector(`#form`).classList.add(`d-none`); // FEIL: --> tar bort bare form, wrapperen står kvar.
+document.querySelector(`.form-wrapper`).classList.add(`d-none`); // TAR BORT BÅDE (form) OG (form-wrapper) - ALT GJEMMES 
+document.querySelector(`#gameField`).classList.remove(`d-none`); // Annelie behöver remove(d-none)
+
+document.body.style.backgroundImage = "url('../assets/arena-background.png')"; // BYTTER UT BACKGRUNNSBILDE
+
+// LEGG TIL MUSIKKFUNKSJONEN HER
+// startMusic();
+
+// SETT INN ANNELIEs FUNKSJON
+// createPokemons();
+
+// SETT INN THAPAs FUNKSJON
+// movePokemons();
+
+
+
+}
 const numPokemons = 10;
 const gameField = document.querySelector(`#gameField`);
 const pokemons = [];
