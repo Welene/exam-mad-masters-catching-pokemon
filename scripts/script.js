@@ -81,7 +81,7 @@ document.body.style.backgroundImage = "url('../assets/arena-background.png')"; /
 
 // startMusic();
 createPokemons();
-movePokemons();
+// movePokemons();
 }
 
 const numPokemons = 10;
@@ -92,15 +92,16 @@ const pokeballImg = document.createElement(`img`);
 pokeballImg.src = `./assets/ball.webp`;
 pokeballImg.alt = `Pokemonboll`;
 
-// skapa function RandomPokemonImg för att spara src för jpg i variabeln randomImg.
+// skapa function randomPokemonImg för att spara src för jpg i variabeln randomImg.
 // Tar emot parametrar om totalt antal pokemons och antalet vi vill ha.
 //  finns variabel numPokemons sparad för detta med värdet 10
 
 function randomPokemonImg(allImages, numImages){
-  let selectedImages = [];
+  let selectedImages = new Set(); // Set() = unngår å få samme pokemon/bilde to ganger
 
-  while (selectedImages.size < numImages) {
-  
+  while (selectedImages.length < numImages) {
+    let randomCardIndex = Math.floor(Math.random() * allImages.length);
+    selectedImages.add(allImages[randomCardIndex]);
   }
  
 }
@@ -122,33 +123,38 @@ function createPokemons() {
     gameField.appendChild(pokemon);
     pokemons.push(pokemon);
   }
-  movePokemons();
+  // movePokemons();
 }
 
-function movePokemons() {
-  let allPokemons = document.querySelectorAll(".pokemon"); // Select all Pokémon images
 
-  allPokemons.forEach((pokemon) => {
-    let newLeft = oGameData.getLeftPosition();
-    let newTop = oGameData.getTopPosition();
 
-    pokemon.style.left = `${newLeft}px`; // Moves Pokémon horizontally
-    pokemon.style.top = `${newTop}px`; // Moves Pokémon vertically
-  });
-}
+// function movePokemons() {
+//   let allPokemons = document.querySelectorAll(".pokemon"); 
 
-// Move Pokémon every 3 seconds
-setInterval(movePokemons, 3000);
+//   allPokemons.forEach((pokemon) => {
+//     let newLeft = oGameData.getLeftPosition();
+//     let newTop = oGameData.getTopPosition();
 
-function catchPokemon(event) {
-  let randomImg = event.target;
-  if (!caughtPokemons.has(img)) {
+//     pokemon.style.left = `${newLeft}px`; 
+//     pokemon.style.top = `${newTop}px`;
+
+//     setInterval(movePokemons, 3000);
+//   });
+// }
+
+
+
+
+// function catchPokemon(event) {
+//  let img = event.target;
+//  if (!caughtPokemons.has(img)) {
     // if not caught  catch it...
-    caughtPokemons.add(img);
-    img.src = "./assets/pokeboll.png";      // change to a ball 
-    img.removeEventListener("click", releasePokemon);
-    oGameData.nmbrOfCaughtPokemons++;
-    if (oGameData.nmbrOfCaughtPokemons ===10) 
-        endGame();
-  }
-}
+//    caughtPokemons.add(img); 
+//    img.src = "./assets/pokeboll.png";     
+//    img.removeEventListener('click', releasePokemon); // skal ikke fjerne listener // skal ikke klikke, skal hovre // releasePokemon er ikke en hendelse
+//    oGameData.nmbrOfCaughtPokemons++;
+//
+//    if (oGameData.nmbrOfCaughtPokemons ===10)  // skap en nmbrOfCaughtPokemons?
+//        endGame(); // lag en endGame funksjon senere som validerer at spillet er over/kjører når spillet er over
+//  }
+// }
