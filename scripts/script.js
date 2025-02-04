@@ -1,24 +1,10 @@
 const log = (msg) => console.log(msg);
 
-// Användaren startar vid ett formulär och ni skall formulärvalidera följande
-// --- Tränarens namn måste vara mellan 5 och 10 tecken långt
-// --- Tränaren måste vara mellan 10 och 15 år gammal
-// --- Tränaren måste ha bockat i om hen är en pojke eller en flicka
-
-// let oGameData = {};
-// log(oGameData);
-
-// function initGlobalObject() {
-//     oGameData.trainerName = document.querySelector(`#nick`);
-//     oGameData.trainerAge = Parseint(document.querySelector(`#age`));
-
-//     oGameData.timeRef = document.querySelector(`#errorMsg`);
-//     oGameData.querySelector('#form');
-// }
-
 let errorMsg = document.createElement(`p`);
 errorMsg.id = `errorMsg`;
 errorMsg.style.color = `red`;
+errorMsg.style.fontWeight = `600`;
+errorMsg.style.fontStyle = `italic`; //----------------------------------------------ENDRET TIL (bold) + (italic), kan ta bort også
 
 const submitBtnRef = document.querySelector(`#submitBtn`);
 submitBtnRef.insertAdjacentElement("afterend", errorMsg);
@@ -67,9 +53,15 @@ function validateForm(event) {
       }
     }
     if (!isSelected) {
-      throw new Error(`Du måste välja pojke eller flicka`);
+      throw new Error(`In this game you have to be either a boy or a girl`);
     }
     errorMsg.textContent = ``;
+
+    initiateGame(); // ----------------------------------------------- ANROPER (InitiateGame) HER - ETTER (form) ER KONTROLLERT
+
+    event.preventDefault(); // --------------------------------------- FLYTTET (preventDefault) UT FRA (catch) -  sånn at den ikke
+    // ----------------------------------------------------------------bare unngår å refreshe når ting er feil,
+    //---------------------------------------------------------------- men også unngår å refreshe når alt er rett
   } catch (error) {
     errorMsg.textContent = error.message;
     log(error.message);
@@ -117,8 +109,90 @@ function toggleMusic() {
 
 musicBtn.addEventListener(`click`, toggleMusic);
 
-//Anropa musiken i initiategame?
-// startMusic();
 
-//Stoppa musicen med gameover?
-// stopMusic();
+function initiateGame() {
+  // bytte bakgrunnsbilde med et annet
+  // document.querySelector(`#form`).classList.add(`d-none`); // FEIL: --> tar bort bare form, wrapperen står kvar.
+  document.querySelector(`.form-wrapper`).classList.add(`d-none`); // TAR BORT BÅDE (form) OG (form-wrapper) - ALT GJEMMES
+  document.querySelector(`#gameField`).classList.remove(`d-none`); // Annelie behöver remove(d-none)
+
+  document.body.style.backgroundImage = "url('../assets/arena-background.png')"; // BYTTER UT BACKGRUNNSBILDE
+
+  // startMusic();
+  createPokemons();
+  movePokemons();
+}
+
+const numPokemons = 10;
+const gameField = document.querySelector(`#gameField`);
+const pokemons = [];
+
+const pokeballImg = document.createElement(`img`);
+pokeballImg.src = `./assets/ball.webp`;
+pokeballImg.alt = `Pokemonboll`;
+
+// skapa function RandomPokemonImg för att spara src för jpg i variabeln randomImg.
+// Tar emot parametrar om totalt antal pokemons och antalet vi vill ha.
+//  finns variabel numPokemons sparad för detta med värdet 10
+
+function randomPokemonImg(allImages, numImages) {
+  let selectedImages = [];
+
+  while (selectedImages.length < numImages) {
+    let randomNum = Math.floor(Math.random() * allImages) + 1; //Spara ett slumpat värde i randomNum mellan 1 och 151
+    let formatedNum = randomNum.toString().padStart(3, `0`);
+    //Våra bilder har alltid nollor framför namnet.
+    // Det vill vi skapa. padstart 3 innebär att det alltid ska vara tre siffror
+    selectedImages.push(`./assets/pokemons/${formatedNum}.png`);
+  }
+  return selectedImages;
+}
+
+let randomImg = randomPokemonImg(151, numPokemons);
+log(randomImg);
+
+// let randomImg = [`Bulbasaur`,`Pikachu`, `Charmander`, `Mr Mime`, `Ponyta`, `Piplup`, `Psyduck`, `Rapidash`, `Squirtle`, `Ratata`];
+
+function createPokemons() {
+  for (let i = 0; i < numPokemons; i++) {
+    const pokemon = document.createElement(`img`);
+    pokemon.src = randomImg[i];
+    pokemon.classList.add(`pokemon`);
+    pokemon.style.left = oGameData.getLeftPosition();
+    pokemon.style.top = oGameData.getTopPosition();
+
+    //Lägg till function för att fånga pokemon, catchPokemon?
+    pokemon.addEventListener(`mouseenter`, catchPokemon);
+    gameField.appendChild(pokemon);
+    pokemons.push(pokemon);
+  }
+  movePokemons();
+}
+
+function movePokemons() {
+  let allPokemons = document.querySelectorAll(".pokemon"); // Select all Pokémon images
+
+  allPokemons.forEach((pokemon) => {
+    let newLeft = oGameData.getLeftPosition();
+    let newTop = oGameData.getTopPosition();
+
+    pokemon.style.left = `${newLeft}px`; // Moves Pokémon horizontally
+    pokemon.style.top = `${newTop}px`; // Moves Pokémon vertically
+  });
+}
+
+// Move Pokémon every 3 seconds
+setInterval(movePokemons, 3000);
+
+function catchPokemon(event) {
+  let randomImg = event.target;
+  if (!caughtPokemons.has(img)) {
+    // if not caught  catch it...
+    caughtPokemons.add(img);
+    img.src = "./assets/pokeboll.png"; // change to a ball
+    img.removeEventListener("click", releasePokemon);
+    oGameData.nmbrOfCaughtPokemons++;
+    if (oGameData.nmbrOfCaughtPokemons === 10) endGame();
+  }
+}
+
