@@ -81,21 +81,47 @@ document.querySelector(`#form`).addEventListener(`submit`, validateForm);
 
 const audioRef = document.querySelector(`audio`);
 
+let isPlaying = true;
+
 function startMusic() {
   audioRef.play();
-  log(audioRef);
+  log(`Musiken spelar`);
 }
 
 function stopMusic() {
   audioRef.pause();
-  log(audioRef);
+  log(`Musiken är pausad`);
 }
 
-const musicBtn = document.createElement(`button`);
+let musicBtn = document.createElement(`button`);
 musicBtn.id = `music-btn`;
 musicBtn.classList = `music-btn`;
-musicBtn.textContent= 
+musicBtn.innerHTML = `&#x266B;`;
+musicBtn.style.width = `70px`;
+musicBtn.style.padding = `1rem`;
+musicBtn.style.fontSize = `2rem`;
+musicBtn.style.background = `red`;
+musicBtn.style.position = `absolute`;
+musicBtn.style.right = `0`;
+musicBtn.style.marginRight = `2rem`;
+musicBtn.style.aspectRatio = `1/1`;
 
+document.querySelector(`#gameField`).classList.remove(`d-none`);
+document.querySelector(`#gameField`).appendChild(musicBtn);
+
+function toggleMusic() {
+  if (isPlaying) {
+    stopMusic();
+  } else {
+    startMusic();
+  }
+
+  isPlaying = !isPlaying;
+
+  musicBtn.textContent = isPlaying ? "&#x23F8;" : "&#x266B;";
+}
+
+musicBtn.addEventListener(`click`, toggleMusic);
 
 //Anropa musiken i initiategame?
 // startMusic();
