@@ -89,10 +89,15 @@ const pokeballImg = document.createElement(`img`);
 pokeballImg.src = `./assets/ball.webp`;
 pokeballImg.alt = `Pokemonboll`;
 
-// skapa function RandomPokemonImg för att spara src för jpg i variabeln randomImg
+// skapa function RandomPokemonImg för att spara src för jpg i variabeln randomImg.
+// Tar emot parametrar om totalt antal pokemons och antalet vi vill ha.
+//  finns variabel numPokemons sparad för detta med värdet 10
 
 function createPokemons() {
   for (i = 0; i < numPokemons; i++);
   const pokemon = document.createElement(`img`);
   pokemon.src = randomImg[i];
+  pokemon.classList.add(`pokemon`);
+  pokemon.style.left = oGameData.getLeftPosition();
+  pokemon.style.top = oGameData.getTopPosition();
 }
