@@ -114,6 +114,7 @@ function initiateGame() {
   // document.querySelector(`#form`).classList.add(`d-none`); // FEIL: --> tar bort bare form, wrapperen står kvar.
   document.querySelector(`.form-wrapper`).classList.add(`d-none`); // TAR BORT BÅDE (form) OG (form-wrapper) - ALT GJEMMES
   document.querySelector(`#gameField`).classList.remove(`d-none`); // Annelie behöver remove(d-none)
+  musicBtn.classList.remove(`d-none`);
 
   document.body.style.backgroundImage = "url('../assets/arena-background.png')"; // BYTTER UT BACKGRUNNSBILDE
 
