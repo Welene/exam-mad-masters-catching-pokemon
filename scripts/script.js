@@ -245,3 +245,4 @@ function endGame() {
   )} seconds!`;
   document.querySelector(`#highScore`).classList.remove(`d-none`);
 }
+
