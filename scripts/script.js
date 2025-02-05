@@ -136,13 +136,18 @@ pokeballImg.alt = `Pokemonboll`;
 
 function randomPokemonImg(allImages, numImages) {
   let selectedImages = [];
+  let index = [];
 
   while (selectedImages.length < numImages) {
     let randomNum = Math.floor(Math.random() * allImages) + 1; //Spara ett slumpat värde i randomNum mellan 1 och 151
     let formatedNum = randomNum.toString().padStart(3, `0`);
     //Våra bilder har alltid nollor framför namnet.
     // Det vill vi skapa. padstart 3 innebär att det alltid ska vara tre siffror
-    selectedImages.push(`./assets/pokemons/${formatedNum}.png`);
+
+    if (!index.includes(formatedNum)) {
+      selectedImages.push(`./assets/pokemons/${formatedNum}.png`);
+      index.push(formatedNum);
+    }
   }
   return selectedImages;
 }
