@@ -102,7 +102,7 @@ function toggleMusic() {
 
   isPlaying = !isPlaying;
 
-  musicBtn.innerHTML = isPlaying
+  musicBtn.textContent = isPlaying
     ? String.fromCodePoint(0x266b)
     : String.fromCodePoint(0x23f8);
 }
@@ -117,7 +117,7 @@ function initiateGame() {
   musicBtn.classList.remove(`d-none`);
 
   document.body.style.backgroundImage = "url('../assets/arena-background.png')"; // BYTTER UT BACKGRUNNSBILDE
-
+  oGameData.startTimeInMilliseconds(); // Start timer
   startMusic();
   createPokemons();
   movePokemons();
@@ -213,6 +213,7 @@ function catchPokemon(event) {
   togglePokeball(event.target);
 }
 
+
 document.querySelector(`#playAgainBtn`).addEventListener(`click`, restartGame);
 
 function restartGame() {
@@ -225,4 +226,22 @@ function restartGame() {
 
   document.querySelector(`#highScore`).classList.add(`d-none`);
   document.querySelector(`#formWrapper`).classList.remove(`d-none`);
+
+function endGame() {
+  stopMusic();
+  musicBtn.classList.add(`d-none`);
+  log("Game Over! All Pokémon are caught!");
+  document
+    .querySelectorAll(`#gameField img`)
+    .forEach((img) => img.classList.add(`d-none`));
+  oGameData.endTimeInMilliseconds();
+  let timeTaken = oGameData.nmbrOfMilliseconds() / 1000;
+
+  let congrat = document.querySelector(`#congrat`);
+  congrat.textContent = `🎉🎉🎉 Congratulations, ${oGameData.trainerName}! 🎉🎉🎉`;
+  let winMsg = document.querySelector(`#winMsg`);
+  winMsg.textContent = `You caught all Pokémon in ${timeTaken.toFixed(
+    2
+  )} seconds!`;
+  document.querySelector(`#highScore`).classList.remove(`d-none`);
 }
