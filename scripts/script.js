@@ -215,46 +215,57 @@ function endGame() {
   oGameData.endTimeInMilliseconds();
   let timeTaken = oGameData.nmbrOfMilliseconds() / 1000;
 
+  localStorage.setItem("timeTaken", timeTaken); 
+  // -------------------- setItem, timeTaken måste sparas I local storage för att accessa den i scoreBoard funktionen utan att göra variabeln global
+
   let congrat = document.querySelector(`#congrat`);
   congrat.textContent = `🎉🎉🎉 Congratulations, ${oGameData.trainerName}! 🎉🎉🎉`;
   let winMsg = document.querySelector(`#winMsg`);
-  winMsg.textContent = `You caught all Pokémon in ${timeTaken.toFixed(
-    2
-  )} seconds!`;
+  winMsg.textContent = `You caught all Pokémon in ${timeTaken.toFixed(2)} seconds!`;
   document.querySelector(`#highScore`).classList.remove(`d-none`);
 }
 
-// lager det som skal stå i scoreboard
+
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+// TLDR - vad gör funktionen;
+
+// 1) funktionen hämtar timeTaken från endGame(); med (localStorage.getItem).
+// 2) använder name & age values från HTML-inputs sparat i variabler
+// 3) skapar et objekt/key med values: name, age & time inuti
+// 4) anroper scoreBoard funktionen för att fungera
+
+// 5) bara synlig under "application" i inspektera
+// 6) visar namnet spelaren har skrevet inuti input, efter hen har vunnit (fordi det är sparat och sen hämtas from local storage)
+
+
+
+// 7) PROBLEM: Förra rundans tid sätts på spelaren ("player"), nuvarande runda sätts inte på spelaren ("player"), 
+// men på "timeTaken" enbart, AKA --> kopplas inte till "player" i local storage, bara "time taken"
+
 function scoreBoard() {
-  const userInput = document.querySelectorAll('input').value; // hämtar alla inputs i (form)
-  const scoreBoardText = document.querySelector('#highScore'); // hämtar highScore section, ser den när klassen (d-none) är borta
-  const savedUserInputBtn = document.querySelector('#submitBtn'); // spara värdet av spelarens input, när man klikkar på (submitBtn)
-  const storedUserInput = localStorage.getItem('userData'); // info om spelaren som är sparat i local storage (?)
 
-  if(storedUserInput) {
-    text.textContent = savedUserInputBtn;
-  }
+  document.querySelector("#submitBtn").addEventListener("click", function() { // klikkar på knappen = localStorage.setItem händer, inputs sparas ner
+    let name = document.querySelector(`#nick`).value;
+    let age = document.querySelector(`#age`).value; // variabler för name, age & time used // används som "Value" i Local Storage, kolla rad 241
+    let time = localStorage.getItem("timeTaken"); //hämtar timeTaken som er sparat i local storage från endGame funktionen
 
-  userInput.addEventListener('input', inputData =>{
-    scoreBoardText.textContent = inputData.target.value;
+    if (name && age && time) {
+      localStorage.setItem("player", JSON.stringify({ name, age, time })); // JSON.s = makes JS objekt into a string, so it can be stored in local storage
+      // player (key/objektet) // name, age, time (value) //
+    } 
   });
-
-  // spara värdet av numbrOfMilliSeconds från endGame(); till spelaren, måste hämta båda inputs (name, age, gender) och (numbrOfMilliSeconds)
-  // Fordi båda (name, age, gender) och (numbrOfMilliSeconds) ska visas i highScore section
-  
-  const saveLocalStorage = () => {
-    localStorage.setItem('userData', userInput.textContent); // saving something to the local storage 
-  }
-
-  playAgainBtn.addEventListener('click', restartGame); // anroper restartGame funksjonen når man klikker på knappen
-
-  submitBtn.addEventListener('click', saveLocalStorage); // lagrer det man skriver i input felt, til local storage
-  // bruk Key + Value (userData) som er lagret i localStorage til å bestemme om de skal være på TOP 10 listen på scoreBoard eller ikke
 }
 
-document.querySelector(`#playAgainBtn`).addEventListener(`click`, restartGame);
+scoreBoard(); // anropa funtionen för att det ska fungera
 
-function restartGame() {
+// visar namnet på spelarens NAME-INPUT efter spelet er klart.
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+function restartGame() { // fungerar inte just nu?
   document.body.style.backgroundImage = "url('../assets/background.png')";
   oGameData.init();
   gameField.classList.add(`d-none`);
