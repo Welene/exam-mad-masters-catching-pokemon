@@ -216,4 +216,6 @@ document.querySelector(`#playAgainBtn`).addEventListener(`click`, restartGame);
 
 function restartGame() {
   oGameData.init();
+  document.querySelector(`#highScore`).classList.add(`d-none`);
+  document.querySelector(`#formWrapper`).classList.remove(`d-none`);
 }
