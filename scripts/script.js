@@ -242,7 +242,7 @@ function scoreBoard() {
   // spara värdet av numbrOfMilliSeconds från endGame(); till spelaren, måste hämta båda inputs (name, age, gender) och (numbrOfMilliSeconds)
   // Fordi båda (name, age, gender) och (numbrOfMilliSeconds) ska visas i highScore section
   
-  const = saveLocalStorage = () => {
+  const saveLocalStorage = () => {
     localStorage.setItem('userData', userInput.textContent); // saving something to the local storage 
   }
 
@@ -264,3 +264,4 @@ function restartGame() {
 
   document.querySelector(`#highScore`).classList.add(`d-none`);
   document.querySelector(`#formWrapper`).classList.remove(`d-none`);
+}
