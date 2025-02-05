@@ -102,7 +102,7 @@ function toggleMusic() {
 
   isPlaying = !isPlaying;
 
-  musicBtn.innerHTML = isPlaying
+  musicBtn.textContent = isPlaying
     ? String.fromCodePoint(0x266b)
     : String.fromCodePoint(0x23f8);
 }
@@ -114,9 +114,10 @@ function initiateGame() {
   // document.querySelector(`#form`).classList.add(`d-none`); // FEIL: --> tar bort bare form, wrapperen står kvar.
   document.querySelector(`.form-wrapper`).classList.add(`d-none`); // TAR BORT BÅDE (form) OG (form-wrapper) - ALT GJEMMES
   document.querySelector(`#gameField`).classList.remove(`d-none`); // Annelie behöver remove(d-none)
+  musicBtn.classList.remove(`d-none`);
 
   document.body.style.backgroundImage = "url('../assets/arena-background.png')"; // BYTTER UT BACKGRUNNSBILDE
-
+  oGameData.startTimeInMilliseconds(); // Start timer
   startMusic();
   createPokemons();
   movePokemons();
@@ -142,9 +143,9 @@ function randomPokemonImg(allImages, numImages) {
     let formatedNum = randomNum.toString().padStart(3, `0`);
     //Våra bilder har alltid nollor framför namnet.
     // Det vill vi skapa. padstart 3 innebär att det alltid ska vara tre siffror
-
-    if (!selectedImages.includes(formatedNum)) {
-      selectedImages.push(`./assets/pokemons/${formatedNum}.png`);
+    let pokemon = `./assets/pokemons/${formatedNum}.png`;
+    if (!selectedImages.includes(pokemon)) {
+      selectedImages.push(pokemon);
       // index.push(formatedNum);
     }
   }
@@ -210,4 +211,23 @@ function togglePokeball(hoveredImage) {
 
 function catchPokemon(event) {
   togglePokeball(event.target);
+}
+
+function endGame() {
+  stopMusic();
+  musicBtn.classList.add(`d-none`);
+  log("Game Over! All Pokémon are caught!");
+  document
+    .querySelectorAll(`#gameField img`)
+    .forEach((img) => img.classList.add(`d-none`));
+  oGameData.endTimeInMilliseconds();
+  let timeTaken = oGameData.nmbrOfMilliseconds() / 1000;
+
+  let congrat = document.querySelector(`#congrat`);
+  congrat.textContent = `🎉🎉🎉 Congratulations, ${oGameData.trainerName}! 🎉🎉🎉`;
+  let winMsg = document.querySelector(`#winMsg`);
+  winMsg.textContent = `You caught all Pokémon in ${timeTaken.toFixed(
+    2
+  )} seconds!`;
+  document.querySelector(`#highScore`).classList.remove(`d-none`);
 }
