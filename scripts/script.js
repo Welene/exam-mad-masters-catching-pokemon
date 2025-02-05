@@ -57,11 +57,10 @@ function validateForm(event) {
     }
     errorMsg.textContent = ``;
 
-    initiateGame(); // ----------------------------------------------- ANROPER (InitiateGame) HER - ETTER (form) ER KONTROLLERT
+    initiateGame();
 
-    event.preventDefault(); // --------------------------------------- FLYTTET (preventDefault) UT FRA (catch) -  sånn at den ikke
-    // ----------------------------------------------------------------bare unngår å refreshe når ting er feil,
-    //---------------------------------------------------------------- men også unngår å refreshe når alt er rett
+    event.preventDefault();
+    
   } catch (error) {
     errorMsg.textContent = error.message;
     log(error.message);
@@ -102,7 +101,7 @@ function toggleMusic() {
 
   isPlaying = !isPlaying;
 
-  musicBtn.innerHTML = isPlaying
+  musicBtn.textContent = isPlaying
     ? String.fromCodePoint(0x266b)
     : String.fromCodePoint(0x23f8);
 }
@@ -114,9 +113,10 @@ function initiateGame() {
   // document.querySelector(`#form`).classList.add(`d-none`); // FEIL: --> tar bort bare form, wrapperen står kvar.
   document.querySelector(`.form-wrapper`).classList.add(`d-none`); // TAR BORT BÅDE (form) OG (form-wrapper) - ALT GJEMMES
   document.querySelector(`#gameField`).classList.remove(`d-none`); // Annelie behöver remove(d-none)
+  musicBtn.classList.remove(`d-none`);
 
   document.body.style.backgroundImage = "url('../assets/arena-background.png')"; // BYTTER UT BACKGRUNNSBILDE
-
+  oGameData.startTimeInMilliseconds(); // Start timer
   startMusic();
   createPokemons();
   movePokemons();
@@ -130,10 +130,6 @@ const pokeballImg = document.createElement(`img`);
 pokeballImg.src = `./assets/ball.webp`;
 pokeballImg.alt = `Pokemonboll`;
 
-// skapa function RandomPokemonImg för att spara src för jpg i variabeln randomImg.
-// Tar emot parametrar om totalt antal pokemons och antalet vi vill ha.
-//  finns variabel numPokemons sparad för detta med värdet 10
-
 function randomPokemonImg(allImages, numImages) {
   let selectedImages = [];
 
@@ -142,9 +138,9 @@ function randomPokemonImg(allImages, numImages) {
     let formatedNum = randomNum.toString().padStart(3, `0`);
     //Våra bilder har alltid nollor framför namnet.
     // Det vill vi skapa. padstart 3 innebär att det alltid ska vara tre siffror
-
-    if (!selectedImages.includes(formatedNum)) {
-      selectedImages.push(`./assets/pokemons/${formatedNum}.png`);
+    let pokemonSrc = `./assets/pokemons/${formatedNum}.png`;
+    if (!selectedImages.includes(pokemonSrc)) {
+      selectedImages.push(pokemonSrc);
       // index.push(formatedNum);
     }
   }
@@ -153,8 +149,6 @@ function randomPokemonImg(allImages, numImages) {
 
 let randomImg = randomPokemonImg(151, numPokemons);
 log(randomImg);
-
-// let randomImg = [`Bulbasaur`,`Pikachu`, `Charmander`, `Mr Mime`, `Ponyta`, `Piplup`, `Psyduck`, `Rapidash`, `Squirtle`, `Ratata`];
 
 function createPokemons() {
   for (let i = 0; i < numPokemons; i++) {
@@ -191,8 +185,7 @@ setInterval(movePokemons, 3000);
 
 function togglePokeball(hoveredImage) {
   if (hoveredImage.src.includes("ball.webp")) {
-    hoveredImage.src = hoveredImage.dataset.id; // --------- --------- NEEDS A FIX RIGHT HERE --> starts with pokemon, toggles to ball, BUT does not
-    // ------------------------------------------------toggle back to picture of the pokemon. Just empty.jpg, does toggle back to ball again though.
+    hoveredImage.src = hoveredImage.dataset.id; 
     hoveredImage.removeEventListener("mouseenter", togglePokeball);
     oGameData.nmbrOfCaughtPokemons--;
   } else {
@@ -212,15 +205,24 @@ function catchPokemon(event) {
   togglePokeball(event.target);
 }
 
+function endGame() {
+  stopMusic();
+  musicBtn.classList.add(`d-none`);
+  log("Game Over! All Pokémon are caught!");
+  document
+    .querySelectorAll(`#gameField img`)
+    .forEach((img) => img.classList.add(`d-none`));
+  oGameData.endTimeInMilliseconds();
+  let timeTaken = oGameData.nmbrOfMilliseconds() / 1000;
 
-// Thapa lager (endGame) funksjon
-// - sjekker om alle bilder er pokeballs
-// - regner ut hvor lang tid man har brukt når spillet er ferdig
-
-// - remove d-none fra (section --> class="high-score d-none" id="highScore")
-// sånn at scoreBoard vises
-
-
+  let congrat = document.querySelector(`#congrat`);
+  congrat.textContent = `🎉🎉🎉 Congratulations, ${oGameData.trainerName}! 🎉🎉🎉`;
+  let winMsg = document.querySelector(`#winMsg`);
+  winMsg.textContent = `You caught all Pokémon in ${timeTaken.toFixed(
+    2
+  )} seconds!`;
+  document.querySelector(`#highScore`).classList.remove(`d-none`);
+}
 
 // lager det som skal stå i scoreboard
 function scoreBoard() {
@@ -247,10 +249,18 @@ function scoreBoard() {
   playAgainBtn.addEventListener('click', restartGame); // anroper restartGame funksjonen når man klikker på knappen
 
   submitBtn.addEventListener('click', saveLocalStorage); // lagrer det man skriver i input felt, til local storage
-
-
   // bruk Key + Value (userData) som er lagret i localStorage til å bestemme om de skal være på TOP 10 listen på scoreBoard eller ikke
 }
 
+document.querySelector(`#playAgainBtn`).addEventListener(`click`, restartGame);
 
-// Annelie lager en (restartGame) funksjon
+function restartGame() {
+  document.body.style.backgroundImage = "url('../assets/background.png')";
+  oGameData.init();
+  gameField.classList.add(`d-none`);
+
+  document.querySelectorAll(".pokemon").forEach((pokemon) => pokemon.remove());
+  pokemons.length = 0;
+
+  document.querySelector(`#highScore`).classList.add(`d-none`);
+  document.querySelector(`#formWrapper`).classList.remove(`d-none`);
