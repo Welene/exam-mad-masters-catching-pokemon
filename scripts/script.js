@@ -160,13 +160,15 @@ log(randomImg);
 function createPokemons() {
   for (let i = 0; i < numPokemons; i++) {
     const pokemon = document.createElement(`img`);
+    pokemon.dataset.id = randomImg[i];
     pokemon.src = randomImg[i];
     pokemon.classList.add(`pokemon`);
     pokemon.style.left = oGameData.getLeftPosition();
     pokemon.style.top = oGameData.getTopPosition();
 
     //Lägg till function för att fånga pokemon, catchPokemon?
-    pokemon.addEventListener(`mouseenter`, catchPokemon);
+    pokemon.addEventListener(`mouseenter`, catchPokemon); // --- ---------- MADE catchPokemon + togglePokeball FUNCTION: line: 195. 
+    // ---------------------------------------------------------------------Haven't checked if how to remove catchPokemon code from within createPokemons.
     gameField.appendChild(pokemon);
     pokemons.push(pokemon);
   }
@@ -188,14 +190,23 @@ function movePokemons() {
 // Move Pokémon every 3 seconds
 setInterval(movePokemons, 3000);
 
-function catchPokemon(event) {
-  let randomImg = event.target;
-  if (!caughtPokemons.has(img)) {
-    // if not caught  catch it...
-    caughtPokemons.add(img);
-    img.src = "./assets/pokeboll.png"; // change to a ball
-    img.removeEventListener("click", releasePokemon);
-    oGameData.nmbrOfCaughtPokemons++;
-    if (oGameData.nmbrOfCaughtPokemons === 10) endGame();
+
+
+
+function togglePokeball(hoveredImage) {
+  if (hoveredImage.src.includes('ball.webp')) {
+    hoveredImage.src = hoveredImage.dataset.id; // --------- --------- NEEDS A FIX RIGHT HERE --> starts with pokemon, toggles to ball, BUT does not 
+    // ------------------------------------------------toggle back to picture of the pokemon. Just empty.jpg, does toggle back to ball again though.
+    hoveredImage.removeEventListener("mouseenter", togglePokeball);
+  } else {
+    hoveredImage.src = "./assets/ball.webp" 
+    hoveredImage.removeEventListener("mouseleave", togglePokeball);
   }
+  oGameData.nmbrOfCaughtPokemons++;
+  if (oGameData.nmbrOfCaughtPokemons === 10) 
+    endGame(); // skapa endGame function
+}
+
+function catchPokemon(event) {
+  togglePokeball(event.target);
 }
