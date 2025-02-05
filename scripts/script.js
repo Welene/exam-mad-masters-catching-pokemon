@@ -211,3 +211,9 @@ function togglePokeball(hoveredImage) {
 function catchPokemon(event) {
   togglePokeball(event.target);
 }
+
+document.querySelector(`#playAgainBtn`).addEventListener(`click`, restartGame);
+
+function restartGame() {
+  oGameData.init();
+}
