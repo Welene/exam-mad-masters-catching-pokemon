@@ -143,9 +143,9 @@ function randomPokemonImg(allImages, numImages) {
     let formatedNum = randomNum.toString().padStart(3, `0`);
     //Våra bilder har alltid nollor framför namnet.
     // Det vill vi skapa. padstart 3 innebär att det alltid ska vara tre siffror
-    let pokemon = `./assets/pokemons/${formatedNum}.png`;
-    if (!selectedImages.includes(pokemon)) {
-      selectedImages.push(pokemon);
+    let pokemonSrc = `./assets/pokemons/${formatedNum}.png`;
+    if (!selectedImages.includes(pokemonSrc)) {
+      selectedImages.push(pokemonSrc);
       // index.push(formatedNum);
     }
   }
@@ -212,6 +212,20 @@ function togglePokeball(hoveredImage) {
 function catchPokemon(event) {
   togglePokeball(event.target);
 }
+
+
+document.querySelector(`#playAgainBtn`).addEventListener(`click`, restartGame);
+
+function restartGame() {
+  document.body.style.backgroundImage = "url('../assets/background.png')";
+  oGameData.init();
+  gameField.classList.add(`d-none`);
+
+  document.querySelectorAll(".pokemon").forEach((pokemon) => pokemon.remove());
+  pokemons.length = 0;
+
+  document.querySelector(`#highScore`).classList.add(`d-none`);
+  document.querySelector(`#formWrapper`).classList.remove(`d-none`);
 
 function endGame() {
   stopMusic();
