@@ -142,9 +142,9 @@ function randomPokemonImg(allImages, numImages) {
     let formatedNum = randomNum.toString().padStart(3, `0`);
     //Våra bilder har alltid nollor framför namnet.
     // Det vill vi skapa. padstart 3 innebär att det alltid ska vara tre siffror
-    let pokemon = `./assets/pokemons/${formatedNum}.png`;
-    if (!selectedImages.includes(pokemon)) {
-      selectedImages.push(pokemon);
+    let pokemonSrc = `./assets/pokemons/${formatedNum}.png`;
+    if (!selectedImages.includes(pokemonSrc)) {
+      selectedImages.push(pokemonSrc);
       // index.push(formatedNum);
     }
   }
