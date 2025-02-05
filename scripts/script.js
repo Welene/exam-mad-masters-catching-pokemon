@@ -194,12 +194,18 @@ function togglePokeball(hoveredImage) {
     hoveredImage.src = hoveredImage.dataset.id; // --------- --------- NEEDS A FIX RIGHT HERE --> starts with pokemon, toggles to ball, BUT does not
     // ------------------------------------------------toggle back to picture of the pokemon. Just empty.jpg, does toggle back to ball again though.
     hoveredImage.removeEventListener("mouseenter", togglePokeball);
+    oGameData.nmbrOfCaughtPokemons--;
   } else {
     hoveredImage.src = "./assets/ball.webp";
     hoveredImage.removeEventListener("mouseleave", togglePokeball);
+    oGameData.nmbrOfCaughtPokemons++;
   }
-  oGameData.nmbrOfCaughtPokemons++;
-  if (oGameData.nmbrOfCaughtPokemons === 10) endGame(); // skapa endGame function
+  log(oGameData.nmbrOfCaughtPokemons);
+
+  if (oGameData.nmbrOfCaughtPokemons === 10) {
+    log(`Grattis!`);
+    endGame();
+  } // skapa endGame function
 }
 
 function catchPokemon(event) {
