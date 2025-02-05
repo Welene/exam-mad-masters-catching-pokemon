@@ -224,13 +224,13 @@ function catchPokemon(event) {
 
 // lager det som skal stå i scoreboard
 function scoreBoard() {
-  const userInput = document.querySelectorAll(input); // hämtar alla inputs i (form)
+  const userInput = document.querySelectorAll('input').value; // hämtar alla inputs i (form)
   const scoreBoardText = document.querySelector('#highScore'); // hämtar highScore section, ser den när klassen (d-none) är borta
   const savedUserInputBtn = document.querySelector('#submitBtn'); // spara värdet av spelarens input, när man klikkar på (submitBtn)
   const storedUserInput = localStorage.getItem('userData'); // info om spelaren som är sparat i local storage (?)
 
   if(storedUserInput) {
-    text.textContent = savedUserInputBtn
+    text.textContent = savedUserInputBtn;
   }
 
   userInput.addEventListener('input', inputData =>{
