@@ -211,3 +211,46 @@ function togglePokeball(hoveredImage) {
 function catchPokemon(event) {
   togglePokeball(event.target);
 }
+
+
+// Thapa lager (endGame) funksjon
+// - sjekker om alle bilder er pokeballs
+// - regner ut hvor lang tid man har brukt når spillet er ferdig
+
+// - remove d-none fra (section --> class="high-score d-none" id="highScore")
+// sånn at scoreBoard vises
+
+
+
+// lager det som skal stå i scoreboard
+function scoreBoard() {
+  const userInput = document.querySelectorAll(input); // hämtar alla inputs i (form)
+  const scoreBoardText = document.querySelector('#highScore'); // hämtar highScore section, ser den när klassen (d-none) är borta
+  const savedUserInputBtn = document.querySelector('#submitBtn'); // spara värdet av spelarens input, när man klikkar på (submitBtn)
+  const storedUserInput = localStorage.getItem('userData'); // info om spelaren som är sparat i local storage (?)
+
+  if(storedUserInput) {
+    text.textContent = savedUserInputBtn
+  }
+
+  userInput.addEventListener('input', inputData =>{
+    scoreBoardText.textContent = inputData.target.value;
+  });
+
+  // spara värdet av numbrOfMilliSeconds från endGame(); till spelaren, måste hämta båda inputs (name, age, gender) och (numbrOfMilliSeconds)
+  // Fordi båda (name, age, gender) och (numbrOfMilliSeconds) ska visas i highScore section
+  
+  const = saveLocalStorage = () => {
+    localStorage.setItem('userData', userInput.textContent); // saving something to the local storage 
+  }
+
+  playAgainBtn.addEventListener('click', restartGame); // anroper restartGame funksjonen når man klikker på knappen
+
+  submitBtn.addEventListener('click', saveLocalStorage); // lagrer det man skriver i input felt, til local storage
+
+
+  // bruk Key + Value (userData) som er lagret i localStorage til å bestemme om de skal være på TOP 10 listen på scoreBoard eller ikke
+}
+
+
+// Annelie lager en (restartGame) funksjon
