@@ -136,7 +136,6 @@ pokeballImg.alt = `Pokemonboll`;
 
 function randomPokemonImg(allImages, numImages) {
   let selectedImages = [];
-  let index = [];
 
   while (selectedImages.length < numImages) {
     let randomNum = Math.floor(Math.random() * allImages) + 1; //Spara ett slumpat värde i randomNum mellan 1 och 151
@@ -144,9 +143,9 @@ function randomPokemonImg(allImages, numImages) {
     //Våra bilder har alltid nollor framför namnet.
     // Det vill vi skapa. padstart 3 innebär att det alltid ska vara tre siffror
 
-    if (!index.includes(formatedNum)) {
+    if (!selectedImages.includes(formatedNum)) {
       selectedImages.push(`./assets/pokemons/${formatedNum}.png`);
-      index.push(formatedNum);
+      // index.push(formatedNum);
     }
   }
   return selectedImages;
@@ -167,7 +166,7 @@ function createPokemons() {
     pokemon.style.top = oGameData.getTopPosition();
 
     //Lägg till function för att fånga pokemon, catchPokemon?
-    pokemon.addEventListener(`mouseenter`, catchPokemon); // --- ---------- MADE catchPokemon + togglePokeball FUNCTION: line: 195. 
+    pokemon.addEventListener(`mouseenter`, catchPokemon); // --- ---------- MADE catchPokemon + togglePokeball FUNCTION: line: 195.
     // ---------------------------------------------------------------------Haven't checked if how to remove catchPokemon code from within createPokemons.
     gameField.appendChild(pokemon);
     pokemons.push(pokemon);
@@ -190,21 +189,17 @@ function movePokemons() {
 // Move Pokémon every 3 seconds
 setInterval(movePokemons, 3000);
 
-
-
-
 function togglePokeball(hoveredImage) {
-  if (hoveredImage.src.includes('ball.webp')) {
-    hoveredImage.src = hoveredImage.dataset.id; // --------- --------- NEEDS A FIX RIGHT HERE --> starts with pokemon, toggles to ball, BUT does not 
+  if (hoveredImage.src.includes("ball.webp")) {
+    hoveredImage.src = hoveredImage.dataset.id; // --------- --------- NEEDS A FIX RIGHT HERE --> starts with pokemon, toggles to ball, BUT does not
     // ------------------------------------------------toggle back to picture of the pokemon. Just empty.jpg, does toggle back to ball again though.
     hoveredImage.removeEventListener("mouseenter", togglePokeball);
   } else {
-    hoveredImage.src = "./assets/ball.webp" 
+    hoveredImage.src = "./assets/ball.webp";
     hoveredImage.removeEventListener("mouseleave", togglePokeball);
   }
   oGameData.nmbrOfCaughtPokemons++;
-  if (oGameData.nmbrOfCaughtPokemons === 10) 
-    endGame(); // skapa endGame function
+  if (oGameData.nmbrOfCaughtPokemons === 10) endGame(); // skapa endGame function
 }
 
 function catchPokemon(event) {
