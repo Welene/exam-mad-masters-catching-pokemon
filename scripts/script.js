@@ -215,7 +215,13 @@ function catchPokemon(event) {
 document.querySelector(`#playAgainBtn`).addEventListener(`click`, restartGame);
 
 function restartGame() {
+  document.body.style.backgroundImage = "url('../assets/background.png')";
   oGameData.init();
+  gameField.classList.add(`d-none`);
+
+  document.querySelectorAll(".pokemon").forEach((pokemon) => pokemon.remove());
+  pokemons.length = 0;
+
   document.querySelector(`#highScore`).classList.add(`d-none`);
   document.querySelector(`#formWrapper`).classList.remove(`d-none`);
 }
