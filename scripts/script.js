@@ -18,11 +18,11 @@ function validateForm(event) {
   try {
     if (oGameData.trainerName.length < 5) {
       throw new Error(
-        `Your IRL name cannot possibly be that short... change name.`
+        `Your IRL name cannot possibly be that short... Change name.`
       );
     } else if (oGameData.trainerName.length > 10) {
       throw new Error(
-        `Seriously? that name is way too long! Get a shorter one.`
+        `Seriously? that name is way too long! Get a shorter one`
       );
     } else {
       log(errorMsg.textContent);
@@ -31,7 +31,7 @@ function validateForm(event) {
 
     if (oGameData.trainerAge < 10) {
       throw new Error(
-        `You're too young for this... wait a few years and try again.`
+        `You're too young for this... Wait a few years and try again.`
       );
     } else if (oGameData.trainerAge > 15) {
       throw new Error(
