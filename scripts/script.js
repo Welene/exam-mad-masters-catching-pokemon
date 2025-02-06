@@ -274,7 +274,11 @@ function scoreBoard() {
 
   for (let score of highscores) {
     let listItemRef = document.createElement("li");
-    listItemRef.textContent = score.name;
+    listItemRef.classList.add(`highscore__listitem`);
+    listItemRef.textContent = `${score.name} 
+      ${score.age},
+      ${score.gender},
+      ${score.time}`;
     listRef.appendChild(listItemRef);
   }
 }
