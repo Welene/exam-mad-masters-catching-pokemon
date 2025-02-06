@@ -232,8 +232,6 @@ function endGame() {
   scoreBoard(); // anropa funtionen för att det ska fungera
 }
 
-
-
 // ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 // TLDR - vad gör funktionen;
@@ -246,43 +244,46 @@ function endGame() {
 // 5) bara synlig under "application" i inspektera
 // 6) visar namnet spelaren har skrevet inuti input, efter hen har vunnit (fordi det är sparat och sen hämtas from local storage)
 
-
-
-// 7) PROBLEM: Förra rundans tid sätts på spelaren ("player"), nuvarande runda sätts inte på spelaren ("player"), 
+// 7) PROBLEM: Förra rundans tid sätts på spelaren ("player"), nuvarande runda sätts inte på spelaren ("player"),
 // men på "timeTaken" enbart, AKA --> kopplas inte till "player" i local storage, bara "time taken"
 
 function scoreBoard() {
-let highscores = JSON.parse(localStorage.getItem(`highscores`)) || [];
+  let highscores = JSON.parse(localStorage.getItem(`highscores`)) || [];
 
-highscores.push({
-  name: oGameData.trainerName,
-  age: oGameData.trainerAge,
-  gender: oGameData.trainerGender,
-  time: oGameData.endTime
-});
+  highscores.push({
+    name: oGameData.trainerName,
+    age: oGameData.trainerAge,
+    gender: oGameData.trainerGender,
+    time: oGameData.endTime,
+  });
 
-highscores.sort((a, b) => a.time - b.time);
+  highscores.sort((a, b) => a.time - b.time);
 
-if (highscores.length > 10) {
-  highscores.pop();    
-};
+  if (highscores.length > 10) {
+    highscores.pop();
+  }
 
-localStorage.setItem("highscores", JSON.stringify(highscores));
+  localStorage.setItem("highscores", JSON.stringify(highscores));
+
+  localStorage.setItem("highscores", JSON.stringify(highscores));
 
   // document.querySelector("#submitBtn").addEventListener("click", function() { // klikkar på knappen = localStorage.setItem händer, inputs sparas ner
-    oGameData.trainerAge = age;
-    oGameData.trainerName = name;
-    // variabler för name, age & time used // används som "Value" i Local Storage, kolla rad 241
+  // variabler för name, age & time used // används som "Value" i Local Storage, kolla rad 241
+  let listRef = document.querySelector("#highscoreList");
+  for (let score of highscores) {
+    let listItemRef = document.createElement("li");
+    listItemRef.textContent = score.name;
+    listRef.appendChild(listItemRef);
+  }
 }
-
-
 
 // visar namnet på spelarens NAME-INPUT efter spelet er klart.
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------
 document.querySelector(`#playAgainBtn`).addEventListener(`click`, restartGame);
 
-function restartGame() { // fungerar inte just nu?
+function restartGame() {
+  // fungerar inte just nu?
   document.body.style.backgroundImage = "url('../assets/background.png')";
   oGameData.init();
   gameField.classList.add(`d-none`);
