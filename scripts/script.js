@@ -49,6 +49,8 @@ function validateForm(event) {
     for (let radio of genderRadios) {
       if (radio.checked) {
         isSelected = true;
+        oGameData.trainerGender = radio.id;
+        log(radio.id);
         break;
       }
     }
@@ -180,7 +182,7 @@ function movePokemons() {
 }
 
 // Move Pokémon every 3 seconds
-setInterval(movePokemons, 3000);
+oGameData.time = setInterval(movePokemons, 3000);
 
 function togglePokeball(hoveredImage) {
   if (hoveredImage.src.includes("ball.webp")) {
@@ -205,6 +207,7 @@ function catchPokemon(event) {
 }
 
 function endGame() {
+  clearInterval(oGameData.timerId);
   stopMusic();
   musicBtn.classList.add(`d-none`);
   log("Game Over! All Pokémon are caught!");
@@ -251,10 +254,21 @@ function endGame() {
 // men på "timeTaken" enbart, AKA --> kopplas inte till "player" i local storage, bara "time taken"
 
 function scoreBoard() {
+let highscores = JSON.parse(localStorage.getItem(`highscores`)) || [];
 
+highscores.push({
+  name: oGameData.trainerName,
+  age: oGameData.trainerAge,
+  gender: oGameData.trainerGender,
+  time: oGameData.nmbrOfMilliseconds
+});
   // document.querySelector("#submitBtn").addEventListener("click", function() { // klikkar på knappen = localStorage.setItem händer, inputs sparas ner
+    oGameData.trainerAge = age;
+    oGameData.trainerName = name;
     let name = document.querySelector(`#nick`).value;
     let age = document.querySelector(`#age`).value; // variabler för name, age & time used // används som "Value" i Local Storage, kolla rad 241
+    let genderGirl = document.querySelector(`#girl`, `#boy`).value;
+
     let time = localStorage.getItem("timeTaken"); //hämtar timeTaken som er sparat i local storage från endGame funktionen
 
     if (name && age && time) {
@@ -268,7 +282,7 @@ scoreBoard(); // anropa funtionen för att det ska fungera
 // visar namnet på spelarens NAME-INPUT efter spelet er klart.
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------
-
+document.querySelector(`#playAgainBtn`).addEventListener(`click`, restartGame);
 
 function restartGame() { // fungerar inte just nu?
   document.body.style.backgroundImage = "url('../assets/background.png')";
