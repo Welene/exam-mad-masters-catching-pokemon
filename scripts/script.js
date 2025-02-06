@@ -210,7 +210,6 @@ function endGame() {
   winMsg.textContent = `You caught all Pokémon in ${oGameData.endTime.toFixed(
     2
   )} seconds!`;
-
   document.querySelector(`#highScore`).classList.remove(`d-none`);
 
   let finaleMusic = document.createElement(`audio`);
