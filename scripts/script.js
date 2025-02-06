@@ -60,7 +60,6 @@ function validateForm(event) {
     initiateGame();
 
     event.preventDefault();
-    
   } catch (error) {
     errorMsg.textContent = error.message;
     log(error.message);
@@ -185,7 +184,7 @@ setInterval(movePokemons, 3000);
 
 function togglePokeball(hoveredImage) {
   if (hoveredImage.src.includes("ball.webp")) {
-    hoveredImage.src = hoveredImage.dataset.id; 
+    hoveredImage.src = hoveredImage.dataset.id;
     hoveredImage.removeEventListener("mouseenter", togglePokeball);
     oGameData.nmbrOfCaughtPokemons--;
   } else {
