@@ -4,7 +4,7 @@ let errorMsg = document.createElement(`p`);
 errorMsg.id = `errorMsg`;
 errorMsg.style.color = `red`;
 errorMsg.style.fontWeight = `600`;
-errorMsg.style.fontStyle = `italic`; //----------------------------------------------ENDRET TIL (bold) + (italic), kan ta bort også
+errorMsg.style.fontStyle = `italic`;
 
 const submitBtnRef = document.querySelector(`#submitBtn`);
 submitBtnRef.insertAdjacentElement("afterend", errorMsg);
@@ -90,7 +90,6 @@ musicBtn.id = `music-btn`;
 musicBtn.classList = `music-btn`;
 musicBtn.textContent = String.fromCodePoint(0x266b);
 
-// document.querySelector(`#gameField`).classList.remove(`d-none`);
 document.querySelector(`#gameField`).appendChild(musicBtn);
 
 function toggleMusic() {
@@ -110,14 +109,12 @@ function toggleMusic() {
 musicBtn.addEventListener(`click`, toggleMusic);
 
 function initiateGame() {
-  // bytte bakgrunnsbilde med et annet
-  // document.querySelector(`#form`).classList.add(`d-none`); // FEIL: --> tar bort bare form, wrapperen står kvar.
-  document.querySelector(`.form-wrapper`).classList.add(`d-none`); // TAR BORT BÅDE (form) OG (form-wrapper) - ALT GJEMMES
-  document.querySelector(`#gameField`).classList.remove(`d-none`); // Annelie behöver remove(d-none)
+  document.querySelector(`.form-wrapper`).classList.add(`d-none`);
+  document.querySelector(`#gameField`).classList.remove(`d-none`);
   musicBtn.classList.remove(`d-none`);
 
-  document.body.style.backgroundImage = "url('../assets/arena-background.png')"; // BYTTER UT BACKGRUNNSBILDE
-  oGameData.startTimeInMilliseconds(); // Start timer
+  document.body.style.backgroundImage = "url('../assets/arena-background.png')";
+  oGameData.startTimeInMilliseconds();
   startMusic();
   createPokemons();
   movePokemons();
@@ -135,14 +132,11 @@ function randomPokemonImg(allImages, numImages) {
   let selectedImages = [];
 
   while (selectedImages.length < numImages) {
-    let randomNum = Math.floor(Math.random() * allImages) + 1; //Spara ett slumpat värde i randomNum mellan 1 och 151
+    let randomNum = Math.floor(Math.random() * allImages) + 1;
     let formatedNum = randomNum.toString().padStart(3, `0`);
-    //Våra bilder har alltid nollor framför namnet.
-    // Det vill vi skapa. padstart 3 innebär att det alltid ska vara tre siffror
     let pokemonSrc = `./assets/pokemons/${formatedNum}.png`;
     if (!selectedImages.includes(pokemonSrc)) {
       selectedImages.push(pokemonSrc);
-      // index.push(formatedNum);
     }
   }
   return selectedImages;
@@ -159,10 +153,7 @@ function createPokemons() {
     pokemon.classList.add(`pokemon`);
     pokemon.style.left = oGameData.getLeftPosition();
     pokemon.style.top = oGameData.getTopPosition();
-
-    //Lägg till function för att fånga pokemon, catchPokemon?
-    pokemon.addEventListener(`mouseenter`, catchPokemon); // --- ---------- MADE catchPokemon + togglePokeball FUNCTION: line: 195.
-    // ---------------------------------------------------------------------Haven't checked if how to remove catchPokemon code from within createPokemons.
+    pokemon.addEventListener(`mouseenter`, catchPokemon);
     gameField.appendChild(pokemon);
     pokemons.push(pokemon);
   }
@@ -170,18 +161,17 @@ function createPokemons() {
 }
 
 function movePokemons() {
-  let allPokemons = document.querySelectorAll(".pokemon"); // Select all Pokémon images
+  let allPokemons = document.querySelectorAll(".pokemon");
 
   allPokemons.forEach((pokemon) => {
     let newLeft = oGameData.getLeftPosition();
     let newTop = oGameData.getTopPosition();
 
-    pokemon.style.left = `${newLeft}px`; // Moves Pokémon horizontally
-    pokemon.style.top = `${newTop}px`; // Moves Pokémon vertically
+    pokemon.style.left = `${newLeft}px`;
+    pokemon.style.top = `${newTop}px`;
   });
 }
 
-// Move Pokémon every 3 seconds
 oGameData.time = setInterval(movePokemons, 3000);
 
 function togglePokeball(hoveredImage) {
@@ -199,7 +189,7 @@ function togglePokeball(hoveredImage) {
   if (oGameData.nmbrOfCaughtPokemons === 10) {
     log(`Grattis!`);
     endGame();
-  } // skapa endGame function
+  }
 }
 
 function catchPokemon(event) {
@@ -229,23 +219,8 @@ function endGame() {
   document.querySelector(`#gameField`).appendChild(finaleMusic);
   finaleMusic.src = `./assets/winMusic.mp3`;
   finaleMusic.play();
-  scoreBoard(); // anropa funtionen för att det ska fungera
+  scoreBoard();
 }
-
-// ----------------------------------------------------------------------------------------------------------------------------------------------------
-
-// TLDR - vad gör funktionen;
-
-// 1) funktionen hämtar timeTaken från endGame(); med (localStorage.getItem).
-// 2) använder name & age values från HTML-inputs sparat i variabler
-// 3) skapar et objekt/key med values: name, age & time inuti
-// 4) anroper scoreBoard funktionen för att fungera
-
-// 5) bara synlig under "application" i inspektera
-// 6) visar namnet spelaren har skrevet inuti input, efter hen har vunnit (fordi det är sparat och sen hämtas from local storage)
-
-// 7) PROBLEM: Förra rundans tid sätts på spelaren ("player"), nuvarande runda sätts inte på spelaren ("player"),
-// men på "timeTaken" enbart, AKA --> kopplas inte till "player" i local storage, bara "time taken"
 
 function scoreBoard() {
   let highscores = JSON.parse(localStorage.getItem(`highscores`)) || [];
@@ -265,10 +240,6 @@ function scoreBoard() {
 
   localStorage.setItem("highscores", JSON.stringify(highscores));
 
-  // document.querySelector("#submitBtn").addEventListener("click", function() { // klikkar på knappen = localStorage.setItem händer, inputs sparas ner
-  // variabler för name, age & time used // används som "Value" i Local Storage, kolla rad 241
-  // listRef.textContent = "";
-
   let listRef = document.querySelector("#highscoreList");
   document.querySelectorAll("#highscoreList li").forEach((li) => li.remove());
 
@@ -283,13 +254,9 @@ function scoreBoard() {
   }
 }
 
-// visar namnet på spelarens NAME-INPUT efter spelet er klart.
-
-// ----------------------------------------------------------------------------------------------------------------------------------------------------
 document.querySelector(`#playAgainBtn`).addEventListener(`click`, restartGame);
 
 function restartGame() {
-  // fungerar inte just nu?
   document.body.style.backgroundImage = "url('../assets/background.png')";
   oGameData.init();
   gameField.classList.add(`d-none`);
