@@ -60,7 +60,6 @@ function validateForm(event) {
     initiateGame();
 
     event.preventDefault();
-    
   } catch (error) {
     errorMsg.textContent = error.message;
     log(error.message);
@@ -185,7 +184,7 @@ setInterval(movePokemons, 3000);
 
 function togglePokeball(hoveredImage) {
   if (hoveredImage.src.includes("ball.webp")) {
-    hoveredImage.src = hoveredImage.dataset.id; 
+    hoveredImage.src = hoveredImage.dataset.id;
     hoveredImage.removeEventListener("mouseenter", togglePokeball);
     oGameData.nmbrOfCaughtPokemons--;
   } else {
@@ -222,33 +221,38 @@ function endGame() {
     2
   )} seconds!`;
   document.querySelector(`#highScore`).classList.remove(`d-none`);
+
+  let finaleMusic = document.createElement(`audio`);
+  document.querySelector(`#gameField`).appendChild(finaleMusic);
+  finaleMusic.src = `./assets/winMusic.mp3`;
+  finaleMusic.play();
 }
 
 // lager det som skal stå i scoreboard
 function scoreBoard() {
-  const userInput = document.querySelectorAll('input').value; // hämtar alla inputs i (form)
-  const scoreBoardText = document.querySelector('#highScore'); // hämtar highScore section, ser den när klassen (d-none) är borta
-  const savedUserInputBtn = document.querySelector('#submitBtn'); // spara värdet av spelarens input, när man klikkar på (submitBtn)
-  const storedUserInput = localStorage.getItem('userData'); // info om spelaren som är sparat i local storage (?)
+  const userInput = document.querySelectorAll("input").value; // hämtar alla inputs i (form)
+  const scoreBoardText = document.querySelector("#highScore"); // hämtar highScore section, ser den när klassen (d-none) är borta
+  const savedUserInputBtn = document.querySelector("#submitBtn"); // spara värdet av spelarens input, när man klikkar på (submitBtn)
+  const storedUserInput = localStorage.getItem("userData"); // info om spelaren som är sparat i local storage (?)
 
-  if(storedUserInput) {
+  if (storedUserInput) {
     text.textContent = savedUserInputBtn;
   }
 
-  userInput.addEventListener('input', inputData =>{
+  userInput.addEventListener("input", (inputData) => {
     scoreBoardText.textContent = inputData.target.value;
   });
 
   // spara värdet av numbrOfMilliSeconds från endGame(); till spelaren, måste hämta båda inputs (name, age, gender) och (numbrOfMilliSeconds)
   // Fordi båda (name, age, gender) och (numbrOfMilliSeconds) ska visas i highScore section
-  
+
   const saveLocalStorage = () => {
-    localStorage.setItem('userData', userInput.textContent); // saving something to the local storage 
-  }
+    localStorage.setItem("userData", userInput.textContent); // saving something to the local storage
+  };
 
-  playAgainBtn.addEventListener('click', restartGame); // anroper restartGame funksjonen når man klikker på knappen
+  playAgainBtn.addEventListener("click", restartGame); // anroper restartGame funksjonen når man klikker på knappen
 
-  submitBtn.addEventListener('click', saveLocalStorage); // lagrer det man skriver i input felt, til local storage
+  submitBtn.addEventListener("click", saveLocalStorage); // lagrer det man skriver i input felt, til local storage
   // bruk Key + Value (userData) som er lagret i localStorage til å bestemme om de skal være på TOP 10 listen på scoreBoard eller ikke
 }
 
