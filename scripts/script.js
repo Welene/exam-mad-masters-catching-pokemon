@@ -218,7 +218,7 @@ function endGame() {
   oGameData.endTime = oGameData.nmbrOfMilliseconds() / 1000;
 
   let congrat = document.querySelector(`#congrat`);
-  congrat.textContent = `🎉🎉🎉 Congratulations, ${oGameData.trainerName}! 🎉🎉🎉`;
+  congrat.textContent = `🎉 Congratulations, ${oGameData.trainerName}! 🎉`;
   let winMsg = document.querySelector(`#winMsg`);
   winMsg.textContent = `You caught all Pokémon in ${oGameData.endTime.toFixed(
     2
@@ -254,7 +254,7 @@ function scoreBoard() {
     name: oGameData.trainerName,
     age: oGameData.trainerAge,
     gender: oGameData.trainerGender,
-    time: oGameData.endTime,
+    time: oGameData.endTime.toFixed(2),
   });
 
   highscores.sort((a, b) => a.time - b.time);

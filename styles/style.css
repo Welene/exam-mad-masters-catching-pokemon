@@ -119,10 +119,6 @@ button:hover {
   font-size: 2rem;
 }
 
-/* #highScore {
-
-} */
-
 .highscore-list {
   margin: 2rem 0rem 1rem 1rem;
   font-weight: bold;
@@ -145,13 +141,19 @@ button:hover {
 } */
 
 .highscore__listitem:nth-child(3) {
-  color: rgb(248, 245, 32);
   margin-bottom: 1rem;
 }
 
 .highscore__listitem:nth-child(-n + 3) {
-  color: rgb(248, 245, 32);
+  color: #ffcc00;
   font-size: 1.2rem;
+}
+
+.highscore__title {
+  font-size: 2rem;
+}
+
+.highscore__text {
 }
 
 /*////////////////////////////////////////////////////////////////*/
