@@ -4,22 +4,16 @@
   padding: 0;
 }
 
-/* Ser till så att bilderna får korrekt storlek och deras rörelse animeras */
-/* När ni sätter intervallen efter vilken pokemonen får sin nya position bör den intervallen överensstämma med tiden här. 3s. */
-
-/* Pokémon images */
 img {
-  width: 300px;
+  width: 18.8rem;
   position: absolute;
   transition: all 3s linear;
 }
 
-/* Body styling */
-/* Adjust background scaling */
 body {
   font-family: Arial, sans-serif;
-  background-image: url("../assets/background.png"); /* Changed to correct bild */
-  background-size: cover; /* Show full image */
+  background-image: url("../assets/background.png");
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   height: 100vh;
@@ -29,60 +23,68 @@ body {
   transition: background 1s ease-in-out;
 }
 
-/* New background after validation */
-.game-active {
-  /* WE DON'T NEED THIS ONE - can remove - changing picture inside body directly when game has started */
-  background-image: url("../assets/arena-background.png"); /* Replace with arena background */
-  background-size: cover; /* Optional: Make it cover the whole screen / Show full image  will see later effet*/
+.form {
+  padding-top: 1rem;
 }
 
-/* Form wrapper */
 .form-wrapper {
   background: rgba(245, 245, 220, 0.7);
-  /* background: rgba(157, 58, 58, 0.7);*/
-  padding: 20px;
-  padding-left: 20px;
-  border-radius: 15px;
-  /* box-shadow: 0px 5px 80px rgba(245, 4, 4, 0.3);*/
+  padding: 1.3rem;
+  border-radius: 0.9rem;
   text-align: center;
-  width: 500px;
-  margin-top: -350px;
+  width: 31.3rem;
+  margin-bottom: 21.9rem;
 }
 
-/* Input fields */
 input[type="text"] {
   width: 90%;
-  padding: 8px;
-  margin: 10px 0;
-  border: 2px solid #ccc;
-  border-radius: 5px;
+  padding: 0.5rem;
+  margin: 0.6rem 0;
+  border: 0.1rem solid #ccc;
+  border-radius: 0.3rem;
 }
 
-/* Radio button labels */
 label {
-  margin: 5px;
+  margin: 0.3rem;
   font-weight: bold;
 }
 
-/* Button styles */
+#errorMsg {
+  margin-top: 1rem;
+  font-size: 0.97rem;
+}
+
+#nick {
+  margin-top: 1rem;
+}
+
+.form__text {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
 button {
   margin-top: 1rem;
   background-color: #ffcc00;
   color: black;
   border: none;
-  padding: 10px;
+  padding: 0.6rem;
   width: 100%;
-  font-size: 16px;
-  border-radius: 5px;
+  font-size: 1rem;
+  border-radius: 0.3rem;
   cursor: pointer;
   transition: 0.3s;
+  font-weight: bold;
 }
 
 button:hover {
   background-color: #ff9900;
 }
 
-/* Game field styling */
+.form__submitBtn {
+  width: 90%;
+}
+
 .game-field {
   position: relative;
   width: 100%;
@@ -90,20 +92,18 @@ button:hover {
   overflow: hidden;
 }
 
-/* High Score Display */
 .high-score {
   background: rgba(0, 0, 0, 0.7);
-  color: white;
+  color: rgb(238, 238, 238);
   text-align: center;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 1.3rem;
+  border-radius: 0.6rem;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-/* Hide elements initially */
 .d-none {
   display: none;
 }
@@ -116,38 +116,34 @@ button:hover {
   position: absolute;
   right: 0;
   margin-right: 2rem;
-  width: 80px;
+  width: 5rem;
   aspect-ratio: 1;
   padding: 1rem;
   font-size: 2rem;
 }
-/*////////////////////////////////////////////////////////////////*/
-/* Styling for end message */
-.end-message {
-  font-size: 24px;
+
+.highscore-list {
+  margin: 2rem 0 1rem 1rem;
   font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
-  color: #ff6347; /* You can choose any color */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  letter-spacing: 0.1rem;
 }
 
-/* Styling for end game wrapper */
-.end-game-wrapper {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  padding: 20px;
-  /* background: rgba(245, 245, 220, 0.7); ////////// high kommer att synas
-  background-size: cover; */
-  background: rgba(245, 245, 220, 0.7);
-  color: white;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  width: 50%;
-  max-width: 600px;
-  min-height: 200px;
+.highscore__listitem {
+  margin-bottom: 0.2rem;
 }
 
-/*///////////////////////////////////////////////////////////////////////////////*/
+.highscore__listitem:nth-child(3) {
+  margin-bottom: 1rem;
+}
+
+.highscore__listitem:nth-child(-n + 3) {
+  color: #ffcc00;
+  font-size: 1.2rem;
+}
+
+.highscore__title {
+  font-size: 2rem;
+}
