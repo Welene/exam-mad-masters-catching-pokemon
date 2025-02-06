@@ -212,7 +212,7 @@ function endGame() {
   )} seconds!`;
   document.querySelector(`#highScore`).classList.remove(`d-none`);
 
-  let finaleMusic = document.createElement(`audio`);
+  finaleMusic = document.createElement(`audio`);
   document.querySelector(`#gameField`).appendChild(finaleMusic);
   finaleMusic.src = `./assets/winMusic.mp3`;
   finaleMusic.play();
