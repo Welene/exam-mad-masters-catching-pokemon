@@ -21,6 +21,7 @@ body {
   justify-content: center;
   align-items: center;
   transition: background 1s ease-in-out;
+  padding-top: 3rem;
 }
 
 .form {
@@ -33,7 +34,7 @@ body {
   border-radius: 0.9rem;
   text-align: center;
   width: 31.3rem;
-  margin-bottom: 21.9rem;
+  height: fit-content;
 }
 
 input[type="text"] {
