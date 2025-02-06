@@ -215,15 +215,12 @@ function endGame() {
     .querySelectorAll(`#gameField img`)
     .forEach((img) => img.classList.add(`d-none`));
   oGameData.endTimeInMilliseconds();
-  let timeTaken = oGameData.nmbrOfMilliseconds() / 1000;
-
-  localStorage.setItem("timeTaken", timeTaken); 
-  // -------------------- setItem, timeTaken måste sparas I local storage för att accessa den i scoreBoard funktionen utan att göra variabeln global
+  oGameData.endTime = oGameData.nmbrOfMilliseconds() / 1000;
 
   let congrat = document.querySelector(`#congrat`);
   congrat.textContent = `🎉🎉🎉 Congratulations, ${oGameData.trainerName}! 🎉🎉🎉`;
   let winMsg = document.querySelector(`#winMsg`);
-  winMsg.textContent = `You caught all Pokémon in ${timeTaken.toFixed(
+  winMsg.textContent = `You caught all Pokémon in ${oGameData.endTime.toFixed(
     2
   )} seconds!`;
   document.querySelector(`#highScore`).classList.remove(`d-none`);
@@ -232,6 +229,7 @@ function endGame() {
   document.querySelector(`#gameField`).appendChild(finaleMusic);
   finaleMusic.src = `./assets/winMusic.mp3`;
   finaleMusic.play();
+  scoreBoard(); // anropa funtionen för att det ska fungera
 }
 
 
@@ -260,24 +258,24 @@ highscores.push({
   name: oGameData.trainerName,
   age: oGameData.trainerAge,
   gender: oGameData.trainerGender,
-  time: oGameData.nmbrOfMilliseconds
+  time: oGameData.endTime
 });
+
+highscores.sort((a, b) => a.time - b.time);
+
+if (highscores.length > 10) {
+  highscores.pop();    
+};
+
+localStorage.setItem("highscores", JSON.stringify(highscores));
+
   // document.querySelector("#submitBtn").addEventListener("click", function() { // klikkar på knappen = localStorage.setItem händer, inputs sparas ner
     oGameData.trainerAge = age;
     oGameData.trainerName = name;
-    let name = document.querySelector(`#nick`).value;
-    let age = document.querySelector(`#age`).value; // variabler för name, age & time used // används som "Value" i Local Storage, kolla rad 241
-    let genderGirl = document.querySelector(`#girl`, `#boy`).value;
-
-    let time = localStorage.getItem("timeTaken"); //hämtar timeTaken som er sparat i local storage från endGame funktionen
-
-    if (name && age && time) {
-      localStorage.setItem("player", JSON.stringify({ name, age, time })); // JSON.s = makes JS objekt into a string, so it can be stored in local storage
-      // player (key/objektet) // name, age, time (value) //
-    };
+    // variabler för name, age & time used // används som "Value" i Local Storage, kolla rad 241
 }
 
-scoreBoard(); // anropa funtionen för att det ska fungera
+
 
 // visar namnet på spelarens NAME-INPUT efter spelet er klart.
 
