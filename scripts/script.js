@@ -113,8 +113,10 @@ function initiateGame() {
 
   document.body.style.backgroundImage = "url('../assets/arena-background.png')";
   oGameData.startTimeInMilliseconds();
+  let randomImg = randomPokemonImg(151, numPokemons);
+  log(randomImg);
   startMusic();
-  createPokemons();
+  createPokemons(randomImg);
   movePokemons();
 }
 
@@ -140,10 +142,7 @@ function randomPokemonImg(allImages, numImages) {
   return selectedImages;
 }
 
-let randomImg = randomPokemonImg(151, numPokemons);
-log(randomImg);
-
-function createPokemons() {
+function createPokemons(randomImg) {
   for (let i = 0; i < numPokemons; i++) {
     const pokemon = document.createElement(`img`);
     pokemon.dataset.id = randomImg[i];
@@ -213,7 +212,7 @@ function endGame() {
   )} seconds!`;
   document.querySelector(`#highScore`).classList.remove(`d-none`);
 
-  let finaleMusic = document.createElement(`audio`);
+  finaleMusic = document.createElement(`audio`);
   document.querySelector(`#gameField`).appendChild(finaleMusic);
   finaleMusic.src = `./assets/winMusic.mp3`;
   finaleMusic.play();
