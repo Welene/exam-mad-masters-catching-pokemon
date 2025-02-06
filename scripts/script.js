@@ -265,11 +265,13 @@ function scoreBoard() {
 
   localStorage.setItem("highscores", JSON.stringify(highscores));
 
-  localStorage.setItem("highscores", JSON.stringify(highscores));
-
   // document.querySelector("#submitBtn").addEventListener("click", function() { // klikkar på knappen = localStorage.setItem händer, inputs sparas ner
   // variabler för name, age & time used // används som "Value" i Local Storage, kolla rad 241
+  // listRef.textContent = "";
+
   let listRef = document.querySelector("#highscoreList");
+  document.querySelectorAll("#highscoreList li").forEach((li) => li.remove());
+
   for (let score of highscores) {
     let listItemRef = document.createElement("li");
     listItemRef.textContent = score.name;
