@@ -22,7 +22,7 @@ function validateForm(event) {
       );
     } else if (oGameData.trainerName.length > 10) {
       throw new Error(
-        `Seriously? that name is way too long! Get a shorter one`
+        `Seriously? That name is way too long! Get a shorter one.`
       );
     } else {
       log(errorMsg.textContent);
@@ -34,9 +34,7 @@ function validateForm(event) {
         `You're too young for this... Wait a few years and try again.`
       );
     } else if (oGameData.trainerAge > 15) {
-      throw new Error(
-        `You are way too old for Pokémon! (for legal reasons... that was a joke)`
-      );
+      throw new Error(`You are way too old for Pokémon... (That was a joke!)`);
     } else {
       log(errorMsg.textContent);
       errorMsg.textContent = "";
@@ -55,7 +53,7 @@ function validateForm(event) {
       }
     }
     if (!isSelected) {
-      throw new Error(`In this game you have to be either a boy or a girl`);
+      throw new Error(`In this game you have to be either a boy or a girl.`);
     }
     errorMsg.textContent = ``;
 

@@ -74,6 +74,7 @@ button {
   border-radius: 0.3rem;
   cursor: pointer;
   transition: 0.3s;
+  font-weight: bold;
 }
 
 button:hover {
@@ -82,10 +83,6 @@ button:hover {
 
 .form__submitBtn {
   width: 90%;
-}
-
-#playAgainBtn {
-  font-weight: bold;
 }
 
 .game-field {
